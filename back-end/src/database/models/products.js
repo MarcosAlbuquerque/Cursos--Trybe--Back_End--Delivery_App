@@ -4,6 +4,7 @@ module.exports = (sequelize, DataTypes) => {
   const Products = sequelize.define('Products', {
     name: {
       type: DataTypes.STRING,
+      unique: true,
     },
     price: {
       // Fonte: https://sequelize.org/v5/manual/data-types.html
@@ -12,9 +13,7 @@ module.exports = (sequelize, DataTypes) => {
     },
     url_image: {
       type: DataTypes.STRING,
-      validate: {
-        isUrl: true,
-      }
+      validate: { isUrl: true }
     },
   }, { timestamps: false });
 

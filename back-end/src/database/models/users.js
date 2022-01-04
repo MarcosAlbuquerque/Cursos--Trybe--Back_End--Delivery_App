@@ -7,6 +7,7 @@ module.exports = (sequelize, DataTypes) => {
     },
     email: {
       type: DataTypes.STRING,
+      unique: true,
       validate: {
         isEmail: true,
       }
@@ -14,7 +15,7 @@ module.exports = (sequelize, DataTypes) => {
     password: {
       type: DataTypes.STRING,
       validate: {
-        len: [6, 32],
+        len: [6, 'The password must be at least 6 characters long.'],
       },
     },
     role: {
@@ -22,10 +23,10 @@ module.exports = (sequelize, DataTypes) => {
     }
   }, { timestamps: false });
   
-  Users.associate = function(models) {
-    Users.hasMany(models.Sales, {
-      foreignKey: 'user_id',
-    });
-  };
+  // Users.associate = function(models) {
+  //   Users.hasMany(models.Sales, {
+  //     foreignKey: 'user_id',
+  //   });
+  // };
   return Users;
 };
