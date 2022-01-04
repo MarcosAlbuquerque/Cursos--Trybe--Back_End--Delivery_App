@@ -13,14 +13,14 @@ module.exports = (sequelize, DataTypes) => {
   sales_products.removeAttribute('id');
 
   sales_products.associate = function(models) {
-    models.Products.belongsToMany(models.Sales, {
+    models.products.belongsToMany(models.sales, {
       as: 'sales',
       through: 'sales_products',
       foreignKey: 'sale_id',
       otherKey: 'product_id',
     });
 
-    models.Products.belongsToMany(models.Sales, {
+    models.products.belongsToMany(models.sales, {
       as: 'products',
       through: 'sales_products',
       foreignKey: 'product_id',
