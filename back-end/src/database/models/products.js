@@ -1,7 +1,7 @@
 'use strict';
 
 module.exports = (sequelize, DataTypes) => {
-  const Products = sequelize.define('Products', {
+  const Products = sequelize.define('products', {
     name: {
       type: DataTypes.STRING,
       unique: true,
@@ -16,6 +16,12 @@ module.exports = (sequelize, DataTypes) => {
       validate: { isUrl: true }
     },
   }, { timestamps: false });
+
+  Products.associate = function(models) {
+    Products.hasMany(models.Product, {
+      foreignKey: 'product_id',
+    });
+  };
 
   return Products;
 };

@@ -1,7 +1,7 @@
 'use strict';
 
 module.exports = (sequelize, DataTypes) => {
-  const Users = sequelize.define('Users', {
+  const Users = sequelize.define('users', {
     name: {
       type: DataTypes.STRING,
     },
@@ -23,10 +23,10 @@ module.exports = (sequelize, DataTypes) => {
     }
   }, { timestamps: false });
   
-  // Users.associate = function(models) {
-  //   Users.hasMany(models.Sales, {
-  //     foreignKey: 'user_id',
-  //   });
-  // };
+  Users.associate = function(models) {
+    Users.hasMany(models.Sales, {
+      foreignKey: 'user_id',
+    });
+  };
   return Users;
 };
