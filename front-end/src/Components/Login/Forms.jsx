@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import emailValidation from '../../Utils/Validations/emailValidation';
 import passwordValidation from '../../Utils/Validations/passwordValidation';
 
@@ -55,12 +56,14 @@ const Forms = () => {
         {console.log(!validCredentials)}
         LOGIN
       </button>
-      <button
-        type="button"
-        data-testid="common_login__button-register"
-      >
-        Ainda nao tenho conta
-      </button>
+      <Link to="/register">
+        <button
+          type="button"
+          data-testid="common_login__button-register"
+        >
+          Ainda nao tenho conta
+        </button>
+      </Link>
     </form>
   );
 };
