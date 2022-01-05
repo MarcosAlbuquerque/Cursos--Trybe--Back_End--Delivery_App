@@ -1,7 +1,9 @@
 const express = require('express');
-
+const usersRoutes = require('./routes/UsersRoutes');
+const loginRoutes = require('./routes/LoginRoutes');
 const app = express();
 
-app.get('/coffee', (_req, res) => res.status(418).end());
+app.use('/users', usersRoutes);
+app.use('/login', loginRoutes);
 
 module.exports = app;
