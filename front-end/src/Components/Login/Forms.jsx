@@ -53,7 +53,6 @@ const Forms = () => {
         data-testid="common_login__button-login"
         disabled={ !validCredentials }
       >
-        {console.log(!validCredentials)}
         LOGIN
       </button>
       <Link to="/register">
