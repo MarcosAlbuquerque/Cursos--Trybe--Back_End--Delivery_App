@@ -11,11 +11,11 @@ function Register() {
 
   const prefixo = 'common_register__';
 
-  return ( 
+  return (
     <>
       <h2>Cadastro</h2>
-      <form method='post'>
-        <label htmlFor='Nome'>
+      <form method="post">
+        <label htmlFor="Nome">
           Nome:
           <input
             name="name"
@@ -24,11 +24,11 @@ function Register() {
             type="text"
             required
             onChange={ ({ target }) => setStateRegister({
-              ...stateRegister, name: target.value 
+              ...stateRegister, name: target.value,
             }) }
           />
         </label>
-        <label htmlFor='Email'>
+        <label htmlFor="Email">
           Email:
           <input
             name="email"
@@ -37,11 +37,11 @@ function Register() {
             type="text"
             required
             onChange={ ({ target }) => setStateRegister({
-              ...stateRegister, email: target.value 
+              ...stateRegister, email: target.value,
             }) }
           />
         </label>
-        <label htmlFor='Password'>
+        <label htmlFor="Password">
           Senha:
           <input
             name="password"
@@ -50,7 +50,7 @@ function Register() {
             type="text"
             required
             onChange={ ({ target }) => setStateRegister({
-              ...stateRegister, password: target.value 
+              ...stateRegister, password: target.value,
             }) }
           />
         </label>
@@ -65,7 +65,7 @@ function Register() {
         </div>
       </form>
     </>
-   );
+  );
 }
 
 export default Register;
