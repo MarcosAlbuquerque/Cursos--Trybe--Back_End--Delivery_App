@@ -1,4 +1,4 @@
-const db = require('../models');
+const db = require('../../database/models');
 
 const loginValidation = async (req, res, next) => {
   const { email, password } = req.body;
