@@ -5,6 +5,7 @@ module.exports = (login) => {
   try {
   const jwtConfig = {
     algorithm: 'HS256',
+    expireIn: '7d',
   };  
   const token = jwt.sign(login, process.env.JWT_SECRET, jwtConfig);
   return { token };
