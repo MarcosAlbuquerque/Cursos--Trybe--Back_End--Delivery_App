@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, Navigate } from 'react-router-dom';
 import { LOGIN } from '../../Api';
 import useAxios from '../../Hooks/useAxios';
 import emailValidation from '../../Utils/Validations/emailValidation';
@@ -11,11 +11,12 @@ const Forms = () => {
     email: '',
     password: '',
   });
-  const [errorMessage, setErrorMessage] = React.useState(false);
+
+  const [logged, setLogged] = React.useState(false);
 
   const [validCredentials, setValidCredentials] = React.useState(false);
 
-  const { request, error } = useAxios; 
+  const { request, error } = useAxios();
 
   const handleCredentials = (e) => {
     const { value, name } = e.target;
@@ -24,9 +25,18 @@ const Forms = () => {
 
   const requestLogin = async (e) => {
     e.preventDefault();
-      const { url, options } = LOGIN(credentials);
-      const { response } = await request(url, options);
-      return response;
+    const options = LOGIN(credentials);
+    const response = await request(options);
+
+    if (response) {
+      setLogged(true);
+      console.log('deve renderizar');
+    } else {
+      setLogged(false);
+      console.log('nao deve renderizar');
+    }
+
+    return response;
   };
 
   React.useEffect(() => {
@@ -39,6 +49,7 @@ const Forms = () => {
 
   return (
     <>
+      <p>zebirita@email.com e senha $#zebirita#$</p>
       <form onSubmit={ (e) => requestLogin(e) }>
         <label htmlFor="email">
           Email:
@@ -78,6 +89,7 @@ const Forms = () => {
         </Link>
       </form>
       { error ? <HiddenMessage /> : null }
+      { logged && <Navigate to="/customer/products" />}
     </>
   );
 };

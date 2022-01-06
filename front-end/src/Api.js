@@ -1,13 +1,9 @@
-import axios from 'axios';
-
 export const API_URL = 'http://localhost:3001';
 
-export async function LOGIN ({ email, password }) {
+export function LOGIN(body) {
   return {
+    method: 'post',
     url: `${API_URL}/login`,
-    options: {
-      method: 'POST',
-      body: { email, password },
-    },
-  }
+    data: body,
+  };
 }
