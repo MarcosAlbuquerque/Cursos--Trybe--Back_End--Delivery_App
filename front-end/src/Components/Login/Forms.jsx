@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import axios from 'axios';
 import emailValidation from '../../Utils/Validations/emailValidation';
 import passwordValidation from '../../Utils/Validations/passwordValidation';
 
@@ -8,13 +9,23 @@ const Forms = () => {
     email: '',
     password: '',
   });
+  // const [errorMessage, setErrorMessage] = React.useState(false);
 
   const [validCredentials, setValidCredentials] = React.useState(false);
 
   const handleCredentials = (e) => {
-    e.preventDefault();
     const { value, name } = e.target;
     setCredentials({ ...credentials, [name]: value });
+  };
+
+  const requestLogin = async (e) => {
+    e.preventDefault();
+    await axios.post('http://localhost:3001/login', {
+      email: credentials.email,
+      password: credentials.password,
+    })
+      .then((response) => console.log({ response }))
+      .catch((error) => console.log({ error }));
   };
 
   React.useEffect(() => {
@@ -26,7 +37,7 @@ const Forms = () => {
   }, [credentials]);
 
   return (
-    <form>
+    <form onSubmit={ (e) => requestLogin(e) }>
       <label htmlFor="email">
         Email:
         <input
@@ -64,6 +75,7 @@ const Forms = () => {
         </button>
       </Link>
     </form>
+    // Messagem de erro devera ficar aqui devido ao estado local
   );
 };
 
