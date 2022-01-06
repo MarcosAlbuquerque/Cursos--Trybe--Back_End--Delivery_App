@@ -3,13 +3,14 @@ import { Link } from 'react-router-dom';
 import axios from 'axios';
 import emailValidation from '../../Utils/Validations/emailValidation';
 import passwordValidation from '../../Utils/Validations/passwordValidation';
+import HiddenMessage from './HiddenMessage';
 
 const Forms = () => {
   const [credentials, setCredentials] = React.useState({
     email: '',
     password: '',
   });
-  // const [errorMessage, setErrorMessage] = React.useState(false);
+  const [errorMessage, setErrorMessage] = React.useState(false);
 
   const [validCredentials, setValidCredentials] = React.useState(false);
 
@@ -24,8 +25,10 @@ const Forms = () => {
       email: credentials.email,
       password: credentials.password,
     })
-      .then((response) => console.log({ response }))
-      .catch((error) => console.log({ error }));
+      .then(() => {
+        setErrorMessage(false);
+      })
+      .catch(() => setErrorMessage(true));
   };
 
   React.useEffect(() => {
@@ -37,45 +40,47 @@ const Forms = () => {
   }, [credentials]);
 
   return (
-    <form onSubmit={ (e) => requestLogin(e) }>
-      <label htmlFor="email">
-        Email:
-        <input
-          onChange={ (e) => handleCredentials(e) }
-          type="email"
-          name="email"
-          id="email"
-          data-testid="common_login__input-email"
-        />
+    <>
+      <form onSubmit={ (e) => requestLogin(e) }>
+        <label htmlFor="email">
+          Email:
+          <input
+            onChange={ (e) => handleCredentials(e) }
+            type="email"
+            name="email"
+            id="email"
+            data-testid="common_login__input-email"
+          />
 
-      </label>
-      <label htmlFor="password">
-        Senha:
-        <input
-          onChange={ (e) => handleCredentials(e) }
-          type="password"
-          name="password"
-          id="password"
-          data-testid="common_login__input-password"
-        />
-      </label>
-      <button
-        type="submit"
-        data-testid="common_login__button-login"
-        disabled={ !validCredentials }
-      >
-        LOGIN
-      </button>
-      <Link to="/register">
+        </label>
+        <label htmlFor="password">
+          Senha:
+          <input
+            onChange={ (e) => handleCredentials(e) }
+            type="password"
+            name="password"
+            id="password"
+            data-testid="common_login__input-password"
+          />
+        </label>
         <button
-          type="button"
-          data-testid="common_login__button-register"
+          type="submit"
+          data-testid="common_login__button-login"
+          disabled={ !validCredentials }
         >
-          Ainda nao tenho conta
+          LOGIN
         </button>
-      </Link>
-    </form>
-    // Messagem de erro devera ficar aqui devido ao estado local
+        <Link to="/register">
+          <button
+            type="button"
+            data-testid="common_login__button-register"
+          >
+            Ainda nao tenho conta
+          </button>
+        </Link>
+      </form>
+      { errorMessage ? <HiddenMessage /> : null }
+    </>
   );
 };
 
