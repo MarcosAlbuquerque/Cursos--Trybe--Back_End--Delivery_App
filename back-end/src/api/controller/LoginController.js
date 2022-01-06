@@ -1,6 +1,7 @@
+const md5 = require('md5');
+
 const db = require('../../database/models');
 const JWTgenerate = require('../auth/JWTGenerate');
-const md5 = require('md5');
 
 class LoginController {
   static async login(req, res) {
