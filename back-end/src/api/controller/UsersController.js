@@ -36,7 +36,7 @@ class UserController {
         where: { userId },
       });
       const { id, displayName, image } = getUpdatedUser;
-      const token = JWTgenerate({ id, displayName,/* email (email is not defined) */ image });
+      const token = JWTgenerate({ id, displayName, /* email (email is not defined) */ image });
       return res.status(201).json(token);
     } catch (error) {
       return res.status(400).json(error.message);
