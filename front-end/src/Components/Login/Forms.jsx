@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import axios from 'axios';
+import { LOGIN } from '../../Api';
+import useAxios from '../../Hooks/useAxios';
 import emailValidation from '../../Utils/Validations/emailValidation';
 import passwordValidation from '../../Utils/Validations/passwordValidation';
 import HiddenMessage from './HiddenMessage';
@@ -14,6 +15,8 @@ const Forms = () => {
 
   const [validCredentials, setValidCredentials] = React.useState(false);
 
+  const { request, error } = useAxios; 
+
   const handleCredentials = (e) => {
     const { value, name } = e.target;
     setCredentials({ ...credentials, [name]: value });
@@ -21,14 +24,9 @@ const Forms = () => {
 
   const requestLogin = async (e) => {
     e.preventDefault();
-    await axios.post('http://localhost:3001/login', {
-      email: credentials.email,
-      password: credentials.password,
-    })
-      .then(() => {
-        setErrorMessage(false);
-      })
-      .catch(() => setErrorMessage(true));
+      const { url, options } = LOGIN(credentials);
+      const { response } = await request(url, options);
+      return response;
   };
 
   React.useEffect(() => {
@@ -79,7 +77,7 @@ const Forms = () => {
           </button>
         </Link>
       </form>
-      { errorMessage ? <HiddenMessage /> : null }
+      { error ? <HiddenMessage /> : null }
     </>
   );
 };
