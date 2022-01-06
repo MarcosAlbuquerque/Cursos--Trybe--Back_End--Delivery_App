@@ -7,45 +7,32 @@ import passwordValidation from '../../Utils/Validations/passwordValidation';
 import HiddenMessage from './HiddenMessage';
 
 const Forms = () => {
-  const [credentials, setCredentials] = React.useState({
-    email: '',
-    password: '',
-  });
-
+  const [email, setEmail] = React.useState('');
+  const [password, setPassword] = React.useState('');
   const [logged, setLogged] = React.useState(false);
-
   const [validCredentials, setValidCredentials] = React.useState(false);
 
   const { request, error } = useAxios();
 
-  const handleCredentials = (e) => {
-    const { value, name } = e.target;
-    setCredentials({ ...credentials, [name]: value });
-  };
-
   const requestLogin = async (e) => {
     e.preventDefault();
-    const options = LOGIN(credentials);
+    const options = LOGIN({ email, password });
     const response = await request(options);
 
     if (response) {
       setLogged(true);
-      console.log('deve renderizar');
     } else {
       setLogged(false);
-      console.log('nao deve renderizar');
     }
-
     return response;
   };
 
   React.useEffect(() => {
-    const { email, password } = credentials;
     setValidCredentials(
       emailValidation(email)
       && passwordValidation(password),
     );
-  }, [credentials]);
+  }, [email, password]);
 
   return (
     <>
@@ -54,18 +41,17 @@ const Forms = () => {
         <label htmlFor="email">
           Email:
           <input
-            onChange={ (e) => handleCredentials(e) }
+            onChange={ ({ target: { value } }) => setEmail(value) }
             type="email"
             name="email"
             id="email"
             data-testid="common_login__input-email"
           />
-
         </label>
         <label htmlFor="password">
           Senha:
           <input
-            onChange={ (e) => handleCredentials(e) }
+            onChange={ ({ target: { value } }) => setPassword(value) }
             type="password"
             name="password"
             id="password"
