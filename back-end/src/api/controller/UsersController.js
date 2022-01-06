@@ -31,18 +31,17 @@ class UserController {
     const { userId } = req.params;
     const updatedUser = req.body;
     try {
-      await db.users.update(updatedUser, { where: { id: Number(userId) } } );
+      await db.users.update(updatedUser, { where: { id: Number(userId) } });
       const getUpdatedUser = await db.users.findOne({
         where: { userId },
       });
       const { id, displayName, image } = getUpdatedUser;
-      const token = JWTgenerate({ id, displayName, email, image });
+      const token = JWTgenerate({ id, displayName,/* email (email is not defined) */ image });
       return res.status(201).json(token);
     } catch (error) {
       return res.status(400).json(error.message);
     }
   }
-
 }
 
 module.exports = UserController;
