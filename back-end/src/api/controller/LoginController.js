@@ -1,13 +1,14 @@
 const db = require('../../database/models');
 const JWTgenerate = require('../auth/JWTGenerate');
+const md5 = require('md5');
 
 class LoginController {
   static async login(req, res) {
     const { email: loginEmail, password: loginPassword } = req.body;
     try {
-      // tera de ser feita uma conversao de string para md5
+      const md5Password = md5(loginPassword);
       const user = await db.users.findOne({
-        where: { email: loginEmail, password: loginPassword } });
+        where: { email: loginEmail, password: md5Password } });
 
       const { id, email, name, role } = user;
       const token = JWTgenerate({ id, email, name, role });
