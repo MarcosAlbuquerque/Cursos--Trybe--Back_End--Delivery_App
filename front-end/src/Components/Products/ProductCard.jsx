@@ -14,14 +14,28 @@ const ProductCard = ({ product }) => {
   return (
     <div style={ { display: 'flex' } }>
       <div style={ card }>
-        <span data-testid={`${prefix}element-card-price-${id}`}>{ price }</span>
-        <img data-testid={`${prefix}img-card-bg-image-${id}`} src={ url } alt="Foto de bebida" />
+        <span data-testid={ `${prefix}element-card-price-${id}` }>{price}</span>
+        <img
+          data-testid={ `${prefix}img-card-bg-image-${id}` }
+          src={ url }
+          alt="Foto de bebida"
+        />
         <div>
-          <p data-testid={`${prefix}element-card-title-${id}`}>{ name }</p>
+          <p data-testid={ `${prefix}element-card-title-${id}` }>{name}</p>
           <div>
-            <button data-testid={`${prefix}button-card-rm-item-${id}`} type="button">-</button>
-            <span data-testid={`${prefix}input-card-quantity-${id}`} >0</span>
-            <button data-testid={`${prefix}button-card-add-item-${id}`} type="button">+</button>
+            <button
+              data-testid={ `${prefix}button-card-rm-item-${id}` }
+              type="button"
+            >
+              -
+            </button>
+            <span data-testid={ `${prefix}input-card-quantity-${id}` }>0</span>
+            <button
+              data-testid={ `${prefix}button-card-add-item-${id}` }
+              type="button"
+            >
+              +
+            </button>
           </div>
         </div>
       </div>
