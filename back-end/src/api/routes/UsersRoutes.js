@@ -4,7 +4,7 @@ const UserController = require('../controller/UsersController');
 const tokenValidation = require('../middlewares/TokenValidation');
 
 router.get('/', tokenValidation, UserController.getAllUsers);
-router.post('/', tokenValidation, UserController.createUser);
+router.post('/register', UserController.createUser);
 router.put('/:userId', tokenValidation, UserController.updateUser);
 
 module.exports = router;

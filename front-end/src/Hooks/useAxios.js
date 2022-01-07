@@ -5,7 +5,6 @@ const useAxios = () => {
   const [error, setError] = React.useState(false);
 
   const request = React.useCallback(async (options) => {
-    console.log(options);
     try {
       const response = await axios(options);
       setError(false);

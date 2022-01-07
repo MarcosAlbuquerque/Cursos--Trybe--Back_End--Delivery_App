@@ -1,18 +1,32 @@
 import React from 'react';
+import { Navigate } from 'react-router-dom';
 import emailValidation from '../Utils/Validations/emailValidation';
 import passwordValidation from '../Utils/Validations/passwordValidation';
 import nameValidation from '../Utils/Validations/nameValidation';
+import { REGISTER } from '../Api';
+import useAxios from '../Hooks/useAxios';
 
 function Register() {
   const [name, setName] = React.useState('');
   const [email, setEmail] = React.useState('');
   const [password, setPassword] = React.useState('');
   const [validCredentials, setValidCredentials] = React.useState(false);
+  const [registered, setRegistered] = React.useState(false);
 
-  const prefixo = 'common_register__';
+  const { request /** , error */ } = useAxios();
+
+  const prefix = 'common_register__';
 
   const requestSubmit = async (e) => {
     e.preventDefault();
+    const options = REGISTER({ name, email, password });
+    const response = await request(options);
+
+    if (response) {
+      setRegistered(true);
+    } else {
+      setRegistered(false);
+    }
   };
 
   React.useEffect(() => {
@@ -31,7 +45,7 @@ function Register() {
           Nome:
           <input
             name="name"
-            data-testid={ `${prefixo}input-name` }
+            data-testid={ `${prefix}input-name` }
             type="text"
             onChange={ ({ target: { value } }) => setName(value) }
           />
@@ -40,7 +54,7 @@ function Register() {
           Email:
           <input
             name="email"
-            data-testid={ `${prefixo}input-email` }
+            data-testid={ `${prefix}input-email` }
             type="email"
             onChange={ ({ target: { value } }) => setEmail(value) }
           />
@@ -49,20 +63,21 @@ function Register() {
           Senha:
           <input
             name="password"
-            data-testid={ `${prefixo}input-password` }
+            data-testid={ `${prefix}input-password` }
             type="password"
             onChange={ ({ target: { value } }) => setPassword(value) }
           />
         </label>
         <button
           type="submit"
-          data-testid={ `${prefixo}button-register` }
+          data-testid={ `${prefix}button-register` }
           disabled={ !validCredentials }
         >
           CADASTRAR
         </button>
-        <div data-testid={ `${prefixo}element-invalid_register` }>Dados Incorretos</div>
+        <div data-testid={ `${prefix}element-invalid_register` }>Dados Incorretos</div>
       </form>
+      { registered && <Navigate to="/customer/products" /> }
     </>
   );
 }

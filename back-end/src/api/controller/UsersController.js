@@ -1,3 +1,4 @@
+const md5 = require('md5');
 const db = require('../../database/models');
 const JWTgenerate = require('../auth/JWTGenerate');
 
@@ -12,15 +13,11 @@ class UserController {
   }
 
   static async createUser(req, res) {
-    const newUser = req.body;
-    const { email } = newUser;
+    const newUser = { ...req.body, password: md5(req.body.password) };
     try {
-      await db.users.create(newUser);
-      const getNewUser = await db.users.findOne({
-        where: { email },
-      });
-      const { id, displayName, image } = getNewUser;
-      const token = JWTgenerate({ id, displayName, email, image });
+      const created = await db.users.create(newUser);
+      const { id, name, email, role } = created;
+      const token = JWTgenerate({ id, name, email, role });
       return res.status(201).json(token);
     } catch (error) {
       return res.status(400).json(error.message);

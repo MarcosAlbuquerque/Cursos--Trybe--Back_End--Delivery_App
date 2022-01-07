@@ -7,3 +7,11 @@ export function LOGIN(body) {
     data: body,
   };
 }
+
+export function REGISTER(body) {
+  return {
+    method: 'post',
+    url: `${API_URL}/users/register`,
+    data: body,
+  };
+}

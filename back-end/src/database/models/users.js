@@ -7,6 +7,7 @@ module.exports = (sequelize, DataTypes) => {
     },
     email: {
       type: DataTypes.STRING,
+      allowNull: false,
       unique: true,
       validate: {
         isEmail: true,
@@ -14,12 +15,10 @@ module.exports = (sequelize, DataTypes) => {
     },
     password: {
       type: DataTypes.STRING,
-      validate: {
-        len: [6, 'The password must be at least 6 characters long.'],
-      },
     },
     role: {
       type: DataTypes.STRING,
+      defaultValue: 'customer'
     }
   }, { timestamps: false });
   
