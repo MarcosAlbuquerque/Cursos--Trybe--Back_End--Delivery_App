@@ -24,6 +24,9 @@ const Forms = () => {
     } else {
       setLogged(false);
     }
+
+    localStorage.setItem('User', JSON.stringify(response));
+
     return response;
   };
 
