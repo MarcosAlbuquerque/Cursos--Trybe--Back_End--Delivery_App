@@ -5,6 +5,7 @@ import passwordValidation from '../Utils/Validations/passwordValidation';
 import nameValidation from '../Utils/Validations/nameValidation';
 import { REGISTER } from '../Api';
 import useAxios from '../Hooks/useAxios';
+import HiddenMessage from '../Components/Register/HiddenMessage';
 
 function Register() {
   const [name, setName] = React.useState('');
@@ -13,7 +14,7 @@ function Register() {
   const [validCredentials, setValidCredentials] = React.useState(false);
   const [registered, setRegistered] = React.useState(false);
 
-  const { request /** , error */ } = useAxios();
+  const { request, error } = useAxios();
 
   const prefix = 'common_register__';
 
@@ -75,7 +76,7 @@ function Register() {
         >
           CADASTRAR
         </button>
-        <div data-testid={ `${prefix}element-invalid_register` }>Dados Incorretos</div>
+        { error && <HiddenMessage /> }
       </form>
       { registered && <Navigate to="/customer/products" /> }
     </>

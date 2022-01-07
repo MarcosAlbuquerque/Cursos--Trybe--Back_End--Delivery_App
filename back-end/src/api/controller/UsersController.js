@@ -19,8 +19,8 @@ class UserController {
       const { id, name, email, role } = created;
       const token = JWTgenerate({ id, name, email, role });
       return res.status(201).json(token);
-    } catch (error) {
-      return res.status(400).json(error.message);
+    } catch (e) {
+      return res.status(400).json(e.message);
     }
   }
 
