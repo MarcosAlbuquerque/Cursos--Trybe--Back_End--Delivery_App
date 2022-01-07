@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-d
 import './App.css';
 
 import Login from './Pages/Login';
+import Products from './Pages/Products';
 import Register from './Pages/Register';
 
 function App() {
@@ -12,6 +13,7 @@ function App() {
         <Route path="/" element={ <Navigate to="/login" /> } />
         <Route path="/login" element={ <Login /> } />
         <Route path="/register" element={ <Register /> } />
+        <Route path="/customer/products" element={ <Products /> } />
       </Routes>
     </Router>
   );

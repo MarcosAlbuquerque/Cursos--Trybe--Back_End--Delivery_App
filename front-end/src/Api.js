@@ -15,3 +15,10 @@ export function REGISTER(body) {
     data: body,
   };
 }
+
+export function GET_PRODUCTS() {
+  return {
+    method: 'get',
+    url: `${API_URL}/products`,
+  };
+}

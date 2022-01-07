@@ -11,7 +11,7 @@ module.exports = (login) => {
     expiresIn: '7d',
   };  
   const token = jwt.sign(login, 'teste', jwtConfig);
-  return { token };
+  return token;
   } catch (error) {
     return error.message;
   }
