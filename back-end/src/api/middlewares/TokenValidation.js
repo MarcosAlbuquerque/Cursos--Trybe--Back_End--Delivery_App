@@ -1,6 +1,7 @@
 require('dotenv').config();
 const jwt = require('jsonwebtoken');
 const db = require('../../database/models');
+const resultReadFile = require('../../helper/ReadFile');
 
 const tokenValidation = async (req, res, next) => {
   const token = req.headers.authorization;
@@ -9,7 +10,7 @@ const tokenValidation = async (req, res, next) => {
     return res.status(401).json({ message: 'Token not found' });
   }
   try {
-    const decodedToken = jwt.verify(token, process.env.JWT_SECRET);
+    const decodedToken = jwt.verify(token, resultReadFile);
     const checkTokenAlreadyExists = await db.users.findOne({
       where: { email: decodedToken.email },
     });
