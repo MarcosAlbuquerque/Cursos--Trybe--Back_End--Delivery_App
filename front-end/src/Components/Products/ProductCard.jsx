@@ -29,7 +29,10 @@ const ProductCard = ({ product }) => {
             >
               -
             </button>
-            <span data-testid={ `${prefix}input-card-quantity-${id}` }>0</span>
+            <input
+              type="number"
+              data-testid={ `${prefix}input-card-quantity-${id}` }
+            />
             <button
               data-testid={ `${prefix}button-card-add-item-${id}` }
               type="button"
@@ -48,7 +51,7 @@ export default ProductCard;
 ProductCard.propTypes = {
   product: PropTypes.shape({
     name: PropTypes.string.isRequired,
-    price: PropTypes.number.isRequired,
+    price: PropTypes.string.isRequired,
     url: PropTypes.string.isRequired,
     id: PropTypes.number.isRequired,
   }).isRequired,
