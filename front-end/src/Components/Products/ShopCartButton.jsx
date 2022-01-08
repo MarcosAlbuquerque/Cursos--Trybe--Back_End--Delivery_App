@@ -1,11 +1,5 @@
 import React from 'react';
 
-const ShopCartButton = () => {
-  return (
-    <div>
-      
-    </div>
-  );
-};
+const ShopCartButton = () => <div>Hello World</div>;
 
 export default ShopCartButton;
