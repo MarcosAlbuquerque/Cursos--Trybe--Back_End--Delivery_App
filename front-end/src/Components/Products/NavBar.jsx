@@ -9,7 +9,7 @@ const NavBar = ({ user }) => {
   const navigate = useNavigate();
 
   const logoutUser = () => {
-    localStorage.removeItem('loggedUser');
+    localStorage.removeItem('user');
     navigate('/');
   };
 

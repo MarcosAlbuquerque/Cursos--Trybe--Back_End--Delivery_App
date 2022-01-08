@@ -3,7 +3,7 @@ import jwt from 'jsonwebtoken';
 const thousandNumber = 1000;
 
 function validLogin() {
-  const loggedUser = localStorage.getItem('loggedUser');
+  const loggedUser = localStorage.getItem('user');
 
   if (!loggedUser) return false;
 
