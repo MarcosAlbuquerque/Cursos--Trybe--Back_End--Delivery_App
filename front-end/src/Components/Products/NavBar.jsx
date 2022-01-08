@@ -1,14 +1,18 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import { PropTypes } from 'prop-types';
 import RoleOptions from '../Reusable/RoleOptions';
 
 const prefix = 'customer_products__';
 
-// const clearLocalStorage = () => {
-//   localStorage.removeItem('loggedUser');
-// };
-
 const NavBar = ({ user }) => {
+  const navigate = useNavigate();
+
+  const logoutUser = () => {
+    localStorage.removeItem('loggedUser');
+    navigate('/');
+  };
+
   const { role, name } = user;
   return (
     <nav>
@@ -21,6 +25,7 @@ const NavBar = ({ user }) => {
           { name }
         </button>
         <button
+          onClick={ () => logoutUser() }
           type="button"
           data-testid={ `${prefix}element-navbar-link-logout` }
         >
