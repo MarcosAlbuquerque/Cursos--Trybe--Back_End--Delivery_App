@@ -1,17 +1,30 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import NavBar from '../Components/Products/NavBar';
 import ProductList from '../Components/Products/ProductList';
 
 const Products = () => {
-  const currentUser = JSON
-    .parse(localStorage.getItem('loggedUser'));
+  const currentUser = JSON.parse(localStorage.getItem('loggedUser'));
+  const [isLogged, setIsLogged] = React.useState(false);
+  const navigate = useNavigate();
+
+  React.useEffect(() => {
+    if (!currentUser) {
+      setIsLogged(false);
+      navigate('/');
+    } else {
+      setIsLogged(true);
+    }
+  }, []);
 
   return (
-    <div>
-      <NavBar user={ currentUser } />
-      <ProductList />
-      {/* <ShopCartButton /> */}
-    </div>
+    isLogged && (
+      <div>
+        <NavBar user={ currentUser } />
+        <ProductList />
+        { /* <ShopCartButton /> */ }
+      </div>
+    )
   );
 };
 

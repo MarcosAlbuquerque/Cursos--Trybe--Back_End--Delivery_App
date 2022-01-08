@@ -4,6 +4,10 @@ import RoleOptions from '../Reusable/RoleOptions';
 
 const prefix = 'customer_products__';
 
+// const clearLocalStorage = () => {
+//   localStorage.removeItem('loggedUser');
+// };
+
 const NavBar = ({ user }) => {
   const { role, name } = user;
   return (
