@@ -6,7 +6,9 @@ function validLogin() {
   if (!loggedUser) return false;
 
   try {
-    jwt.verify(loggedUser.token, 'secret_key');
+    /** Aqui pode ser feita uma requisicao para o backend mandao o token
+    // e verifica se o token esta valido */
+    jwt.verify(loggedUser.token, 'supersecret_key');
     return true;
   } catch (error) {
     return false;
