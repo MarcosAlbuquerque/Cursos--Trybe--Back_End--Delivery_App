@@ -2,6 +2,7 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import NavBar from '../Components/Products/NavBar';
 import ProductList from '../Components/Products/ProductList';
+import validLogin from '../Utils/Validations/validLogin';
 
 const Products = () => {
   const currentUser = JSON.parse(localStorage.getItem('loggedUser'));
@@ -9,7 +10,7 @@ const Products = () => {
   const navigate = useNavigate();
 
   React.useEffect(() => {
-    if (!currentUser) {
+    if (!currentUser && !validLogin()) {
       setIsLogged(false);
       navigate('/');
     } else {
