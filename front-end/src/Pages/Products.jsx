@@ -10,7 +10,7 @@ const Products = () => {
   const navigate = useNavigate();
 
   React.useEffect(() => {
-    if (!currentUser && !validLogin()) {
+    if (!currentUser || !validLogin()) {
       setIsLogged(false);
       navigate('/');
     } else {
