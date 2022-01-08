@@ -4,13 +4,11 @@ import ProductList from '../Components/Products/ProductList';
 
 const Products = () => {
   const currentUser = JSON
-    .parse(localStorage.getItem('User'));
-
-  console.log(currentUser);
+    .parse(localStorage.getItem('loggedUser'));
 
   return (
     <div>
-      <NavBar role={ currentUser.role } />
+      <NavBar user={ currentUser } />
       <ProductList />
       {/* <ShopCartButton /> */}
     </div>

@@ -29,7 +29,10 @@ const ProductCard = ({ product }) => {
             >
               -
             </button>
-            <span data-testid={ `${prefix}input-card-quantity-${id}` }>0</span>
+            <input
+              type="number"
+              data-testid={ `${prefix}input-card-quantity-${id}` }
+            />
             <button
               data-testid={ `${prefix}button-card-add-item-${id}` }
               type="button"
