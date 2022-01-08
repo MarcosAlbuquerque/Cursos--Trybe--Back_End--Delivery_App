@@ -10,7 +10,7 @@ module.exports = (login) => {
     algorithm: 'HS256',
     expiresIn: '7d',
   };  
-  const token = jwt.sign(login, 'teste', jwtConfig);
+  const token = jwt.sign(login, 'secret_key', jwtConfig);
   return token;
   } catch (error) {
     return error.message;
