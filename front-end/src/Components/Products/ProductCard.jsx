@@ -5,7 +5,7 @@ import { CartContext } from '../../CartContext';
 const ProductCard = ({ product }) => {
   const { name, price, url_image: url, id } = product;
   const { providerValues } = React.useContext(CartContext);
-  const { verifyCart } = providerValues;
+  const { verifyCartAndIncrease } = providerValues;
 
   const card = {
     border: '1px solid black',
@@ -23,7 +23,7 @@ const ProductCard = ({ product }) => {
 
   function increaseCartButton(target) {
     const { id: idItem, name: nameItem, title } = target;
-    verifyCart(idItem, nameItem, title);
+    verifyCartAndIncrease(idItem, nameItem, title);
   }
 
   // function insertInputCartValue(target) {

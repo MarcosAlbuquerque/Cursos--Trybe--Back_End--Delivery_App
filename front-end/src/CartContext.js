@@ -10,7 +10,7 @@ export const CartStorage = ({ children }) => {
 
   console.log({ shoppingCart });
 
-  function verifyCart(idItem, nameItem, title) {
+  function verifyCartAndIncrease(idItem, nameItem, title) {
     const cartItens = {
       id: idItem,
       name: nameItem,
@@ -33,7 +33,8 @@ export const CartStorage = ({ children }) => {
   }
 
   const providerValues = {
-    verifyCart,
+    shoppingCart,
+    verifyCartAndIncrease,
   };
 
   return (
