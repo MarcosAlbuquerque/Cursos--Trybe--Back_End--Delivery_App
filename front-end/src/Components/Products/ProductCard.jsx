@@ -1,8 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { CartContext } from '../../CartContext';
 
 const ProductCard = ({ product }) => {
   const { name, price, url_image: url, id } = product;
+  const { cartItens, providerValues } = React.useContext(CartContext);
+  const { productQnt } = cartItens;
+  const { setProductId, setProductName, setProductPrice, setProductQnt } = providerValues;
 
   const card = {
     border: '1px solid black',
@@ -10,6 +14,25 @@ const ProductCard = ({ product }) => {
   };
 
   const prefix = 'customer_products__';
+
+  // function decreaseCartButton(target) {
+  //   if ( productPrice === 0 && productQnt === 0 ) {
+  //     return null;
+  //   }
+
+  // };
+
+  function increaseCartButton(target) {
+    const { id: idItem, name: nameItem, title } = target;
+    setProductId(idItem);
+    setProductName(nameItem);
+    setProductPrice(title);
+    setProductQnt(productQnt + 1);
+  }
+
+  // function insertInputCartValue(target) {
+
+  // }
 
   return (
     <div style={ { display: 'flex' } }>
@@ -29,19 +52,27 @@ const ProductCard = ({ product }) => {
           <p data-testid={ `${prefix}element-card-title-${id}` }>{name}</p>
           <div>
             <button
+              id={ id }
               data-testid={ `${prefix}button-card-rm-item-${id}` }
               type="button"
+              onClick={ ({ target }) => decreaseButton(target) }
             >
               -
             </button>
             <input
+              id={ id }
               type="number"
               data-testid={ `${prefix}input-card-quantity-${id}` }
               value="0"
+              onChange={ ({ target }) => insertInputCartValue(target) }
             />
             <button
+              id={ id }
+              name={ name }
+              title={ price }
               data-testid={ `${prefix}button-card-add-item-${id}` }
               type="button"
+              onClick={ ({ target }) => increaseCartButton(target) }
             >
               +
             </button>

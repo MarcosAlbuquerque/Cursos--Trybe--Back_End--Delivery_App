@@ -2,6 +2,7 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import NavBar from '../Components/Products/NavBar';
 import ProductList from '../Components/Products/ProductList';
+import { CartStorage } from '../CartContext';
 import validLogin from '../Utils/Validations/validLogin';
 
 const Products = () => {
@@ -22,8 +23,10 @@ const Products = () => {
     isLogged && (
       <div>
         <NavBar user={ currentUser } />
-        <ProductList />
-        { /* <ShopCartButton /> */ }
+        <CartStorage>
+          <ProductList />
+          { /* <ShopCartButton /> */ }
+        </CartStorage>
       </div>
     )
   );

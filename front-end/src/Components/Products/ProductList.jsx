@@ -2,6 +2,7 @@ import React from 'react';
 import { GET_PRODUCTS } from '../../Api';
 import useAxios from '../../Hooks/useAxios';
 import ProductCard from './ProductCard';
+import styles from './ProductList.module.css';
 
 const ProductList = () => {
   const [products, setProducts] = React.useState([]);
@@ -19,7 +20,7 @@ const ProductList = () => {
   }, []);
 
   return (
-    <div>
+    <div className={ styles.container }>
       { products.map((product, i) => <ProductCard product={ product } key={ i } />) }
     </div>
   );
