@@ -4,9 +4,8 @@ import { CartContext } from '../../CartContext';
 
 const ProductCard = ({ product }) => {
   const { name, price, url_image: url, id } = product;
-  const { cartItens, providerValues } = React.useContext(CartContext);
-  const { productQnt } = cartItens;
-  const { setProductId, setProductName, setProductPrice, setProductQnt } = providerValues;
+  const { providerValues } = React.useContext(CartContext);
+  const { verifyCart } = providerValues;
 
   const card = {
     border: '1px solid black',
@@ -24,10 +23,7 @@ const ProductCard = ({ product }) => {
 
   function increaseCartButton(target) {
     const { id: idItem, name: nameItem, title } = target;
-    setProductId(idItem);
-    setProductName(nameItem);
-    setProductPrice(title);
-    setProductQnt(productQnt + 1);
+    verifyCart(idItem, nameItem, title);
   }
 
   // function insertInputCartValue(target) {

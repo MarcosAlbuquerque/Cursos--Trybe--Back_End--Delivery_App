@@ -1,54 +1,43 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+const magicNumber = -1;
+
 export const CartContext = React.createContext();
 
 export const CartStorage = ({ children }) => {
-  const [productId, setProductId] = React.useState('');
-  const [productName, setProductName] = React.useState('');
-  const [productPrice, setProductPrice] = React.useState(0);
-  const [productQnt, setProductQnt] = React.useState(0);
-  const [productImg, setProductImg] = React.useState(null);
+  const [shoppingCart, setShoppingCart] = React.useState([]);
 
-  const shoppingCart = [];
+  console.log({ shoppingCart });
 
-  const cartItens = {
-    productId,
-    productName,
-    productPrice,
-    productQnt,
-    productImg,
-  };
+  function verifyCart(idItem, nameItem, title) {
+    const cartItens = {
+      id: idItem,
+      name: nameItem,
+      price: title,
+      productQnt: 1,
+    };
 
-  function verifyCart() {
-    const verify = shoppingCart.some((item) => item.productId === productId);
-    console.log({ verify });
-    if (!verify && productQnt > 0) {
-      shoppingCart.push({ ...cartItens });
-      console.log({ shoppingCart });
-      console.log({ cartItens });
+    const verify = shoppingCart.findIndex((item) => item.id === idItem);
+    if (verify === magicNumber) {
+      setShoppingCart([...shoppingCart, cartItens]);
     } else {
-      const newShoppingCart = shoppingCart.filter((item) => item.id !== productId);
-      console.log({ newShoppingCart });
-      const newObject = { ...newShoppingCart, cartItens };
-      shoppingCart.push(newObject);
+      setShoppingCart([...shoppingCart
+        .map((item, index) => {
+          if (index === verify) {
+            item.productQnt += 1;
+          }
+          return item;
+        })]);
     }
   }
 
-  React.useEffect(() => {
-    verifyCart();
-  }, [productQnt]);
-
   const providerValues = {
-    setProductId,
-    setProductName,
-    setProductPrice,
-    setProductQnt,
-    setProductImg,
+    verifyCart,
   };
 
   return (
-    <CartContext.Provider value={ { cartItens, providerValues } }>
+    <CartContext.Provider value={ { providerValues } }>
       {children}
     </CartContext.Provider>
   );
