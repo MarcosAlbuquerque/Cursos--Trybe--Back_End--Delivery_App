@@ -4,6 +4,7 @@ import { CartContext } from '../../CartContext';
 import useAxios from '../../Hooks/useAxios';
 import ProductCard from './ProductCard';
 import styles from './ProductList.module.css';
+import ShopCartButton from './ShopCartButton';
 
 const ProductList = () => {
   const [products, setProducts] = React.useState([]);
@@ -30,7 +31,7 @@ const ProductList = () => {
   return (
     <div className={ styles.container }>
       { products.map((product, i) => <ProductCard product={ product } key={ i } />) }
-      {total.toFixed(2)}
+      <ShopCartButton price={ total.toFixed(2) } />
     </div>
   );
 };
