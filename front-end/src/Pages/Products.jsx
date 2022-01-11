@@ -25,7 +25,6 @@ const Products = () => {
         <CartStorage>
           <NavBar user={ currentUser } />
           <ProductList />
-          { /* <ShopCartButton /> */ }
         </CartStorage>
       </div>
     )
