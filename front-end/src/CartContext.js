@@ -7,6 +7,7 @@ export const CartContext = React.createContext();
 
 export const CartStorage = ({ children }) => {
   const [shoppingCart, setShoppingCart] = React.useState([]);
+  const [qntItems, setQntItems] = React.useState({});
 
   console.log({ shoppingCart });
 
@@ -43,15 +44,26 @@ export const CartStorage = ({ children }) => {
       })]);
   }
 
-  function insertInputValueToCart(idItem, value) {
-    const verify = shoppingCart.findIndex((item) => item.id === idItem);
-    setShoppingCart([...shoppingCart
-      .map((item, index) => {
-        if (index === verify && item.productQnt > 0) {
-          item.productQnt = value;
-        }
-        return item;
-      })]);
+  function insertInputValueToCart(idItem, nameItem, price, value) {
+    const cartItens = {
+      id: idItem,
+      name: nameItem,
+      price,
+      productQnt: value,
+    };
+
+    const verifyIndex = shoppingCart.findIndex((item) => item.id === idItem);
+    if (verifyIndex === magicNumber) {
+      setShoppingCart([...shoppingCart, cartItens]);
+    } else {
+      setShoppingCart([...shoppingCart
+        .map((item, index) => {
+          if (index === verifyIndex) {
+            item.productQnt = value;
+          }
+          return item;
+        })]);
+    }
   }
 
   const providerValues = {
@@ -59,6 +71,8 @@ export const CartStorage = ({ children }) => {
     verifyCartAndIncrease,
     decreaseCart,
     insertInputValueToCart,
+    qntItems,
+    setQntItems,
   };
 
   return (

@@ -4,12 +4,13 @@ import { CartContext } from '../../CartContext';
 
 const ProductCard = ({ product }) => {
   const { name, price, url_image: url, id } = product;
-  // const [qntItens, setQntItens] = React.useState({})
+  const [inputValue, setInputValue] = React.useState(0);
   const { providerValues } = React.useContext(CartContext);
   const {
     verifyCartAndIncrease,
     decreaseCart,
-    insertInputValueToCart } = providerValues;
+    insertInputValueToCart,
+  } = providerValues;
 
   const card = {
     border: '1px solid black',
@@ -20,18 +21,28 @@ const ProductCard = ({ product }) => {
 
   function decreaseCartButton(target) {
     const { id: idItem } = target;
-    decreaseCart(idItem);
+    if (inputValue > 0) {
+      decreaseCart(idItem);
+      setInputValue(inputValue - 1);
+    }
   }
 
   function increaseCartButton(target) {
     const { id: idItem, name: nameItem, title } = target;
+
     verifyCartAndIncrease(idItem, nameItem, title);
+    setInputValue(inputValue + 1);
   }
 
   function insertInputCartValue(target) {
-    console.log(target.value);
-    const { id: idItem, value } = target;
-    insertInputValueToCart(idItem, value);
+    const { id: idItem, name: nameItem, title, value } = target;
+
+    const productQuantity = Number(value);
+
+    if (productQuantity >= 0) {
+      setInputValue(productQuantity);
+      insertInputValueToCart(idItem, nameItem, title, productQuantity);
+    }
   }
 
   return (
@@ -61,9 +72,11 @@ const ProductCard = ({ product }) => {
             </button>
             <input
               id={ id }
+              name={ name }
+              title={ price }
               type="number"
               data-testid={ `${prefix}input-card-quantity-${id}` }
-              value="0"
+              value={ inputValue }
               onChange={ ({ target }) => insertInputCartValue(target) }
             />
             <button
