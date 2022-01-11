@@ -4,8 +4,12 @@ import { CartContext } from '../../CartContext';
 
 const ProductCard = ({ product }) => {
   const { name, price, url_image: url, id } = product;
+  // const [qntItens, setQntItens] = React.useState({})
   const { providerValues } = React.useContext(CartContext);
-  const { verifyCartAndIncrease } = providerValues;
+  const {
+    verifyCartAndIncrease,
+    decreaseCart,
+    insertInputValueToCart } = providerValues;
 
   const card = {
     border: '1px solid black',
@@ -14,21 +18,21 @@ const ProductCard = ({ product }) => {
 
   const prefix = 'customer_products__';
 
-  // function decreaseCartButton(target) {
-  //   if ( productPrice === 0 && productQnt === 0 ) {
-  //     return null;
-  //   }
-
-  // };
+  function decreaseCartButton(target) {
+    const { id: idItem } = target;
+    decreaseCart(idItem);
+  }
 
   function increaseCartButton(target) {
     const { id: idItem, name: nameItem, title } = target;
     verifyCartAndIncrease(idItem, nameItem, title);
   }
 
-  // function insertInputCartValue(target) {
-
-  // }
+  function insertInputCartValue(target) {
+    console.log(target.value);
+    const { id: idItem, value } = target;
+    insertInputValueToCart(idItem, value);
+  }
 
   return (
     <div style={ { display: 'flex' } }>
@@ -51,7 +55,7 @@ const ProductCard = ({ product }) => {
               id={ id }
               data-testid={ `${prefix}button-card-rm-item-${id}` }
               type="button"
-              onClick={ ({ target }) => decreaseButton(target) }
+              onClick={ ({ target }) => decreaseCartButton(target) }
             >
               -
             </button>

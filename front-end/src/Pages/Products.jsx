@@ -22,8 +22,8 @@ const Products = () => {
   return (
     isLogged && (
       <div>
-        <NavBar user={ currentUser } />
         <CartStorage>
+          <NavBar user={ currentUser } />
           <ProductList />
           { /* <ShopCartButton /> */ }
         </CartStorage>

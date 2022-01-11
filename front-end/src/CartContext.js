@@ -10,11 +10,11 @@ export const CartStorage = ({ children }) => {
 
   console.log({ shoppingCart });
 
-  function verifyCartAndIncrease(idItem, nameItem, title) {
+  function verifyCartAndIncrease(idItem, nameItem, price) {
     const cartItens = {
       id: idItem,
       name: nameItem,
-      price: title,
+      price,
       productQnt: 1,
     };
 
@@ -32,9 +32,33 @@ export const CartStorage = ({ children }) => {
     }
   }
 
+  function decreaseCart(idItem) {
+    const verify = shoppingCart.findIndex((item) => item.id === idItem);
+    setShoppingCart([...shoppingCart
+      .map((item, index) => {
+        if (index === verify && item.productQnt > 0) {
+          item.productQnt -= 1;
+        }
+        return item;
+      })]);
+  }
+
+  function insertInputValueToCart(idItem, value) {
+    const verify = shoppingCart.findIndex((item) => item.id === idItem);
+    setShoppingCart([...shoppingCart
+      .map((item, index) => {
+        if (index === verify && item.productQnt > 0) {
+          item.productQnt = value;
+        }
+        return item;
+      })]);
+  }
+
   const providerValues = {
     shoppingCart,
     verifyCartAndIncrease,
+    decreaseCart,
+    insertInputValueToCart,
   };
 
   return (
