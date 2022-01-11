@@ -5,6 +5,7 @@ import './App.css';
 import Login from './Pages/Login';
 import Products from './Pages/Products';
 import Register from './Pages/Register';
+import Checkout from './Pages/Checkout';
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
         <Route path="/login" element={ <Login /> } />
         <Route path="/register" element={ <Register /> } />
         <Route path="/customer/products" element={ <Products /> } />
+        <Route path="/customer/checkout" element={ <Checkout /> } />
       </Routes>
     </Router>
   );
