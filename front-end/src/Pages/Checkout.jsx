@@ -2,16 +2,36 @@ import React from 'react';
 import NavBar from '../Components/Products/NavBar';
 
 const Checkout = () => {
-  const [address, setAddress] = React.useState('');
-  const [number, setNumber] = React.useState('');
-  console.log(address);
-  console.log(number);
+  const [/* address */, setAddress] = React.useState('');
+  const [/* number */, setNumber] = React.useState('');
+  const [cart, setCart] = React.useState([]);
+  const [total, setTotal] = React.useState(0);
+
+  React.useEffect(() => {
+    // Puxa do localStorage
+    const shoppingCart = JSON.parse(localStorage.getItem('shoppingCart')) || [];
+    setCart(shoppingCart);
+
+    // Insere total no useState
+    const totalSum = localStorage.getItem('totalSum');
+    setTotal(totalSum);
+  }, []);
 
   const prefix = 'customer_checkout__element-order-table-';
 
   const currentUser = JSON.parse(localStorage.getItem('user'));
-  const shoppingCart = JSON.parse(localStorage.getItem('shoppingCart')) || [];
-  const totalSum = localStorage.getItem('totalSum');
+
+  const removeItem = (id) => {
+    const newShoppingCart = cart.filter((item) => item.id !== id);
+    setCart(newShoppingCart);
+
+    const newTotalValue = newShoppingCart.reduce((acc, curr) => {
+      acc += curr.price * curr.productQnt;
+      return acc;
+    }, 0);
+    console.log(newTotalValue);
+    setTotal(newTotalValue.toFixed(2).replace(/\./, ','));
+  };
 
   return (
     <div>
@@ -28,7 +48,7 @@ const Checkout = () => {
             <th>Remover item</th>
           </tr>
           {
-            shoppingCart.map(({ name, price, productQnt }, i) => (
+            cart.map(({ id, name, price, productQnt }, i) => (
               <tr key={ name }>
                 <td data-testid={ `${prefix}item-number-${i}` }>{i + 1}</td>
                 <td data-testid={ `${prefix}name-${i}` }>{name}</td>
@@ -44,7 +64,12 @@ const Checkout = () => {
                   {`${(productQnt * price).toFixed(2)}`.replace(/\./, ',')}
                 </td>
                 <td data-testid={ `${prefix}remove-${i}` }>
-                  <button type="button">Remover</button>
+                  <button
+                    type="button"
+                    onClick={ () => removeItem(id) }
+                  >
+                    Remover
+                  </button>
                 </td>
               </tr>
             ))
@@ -57,7 +82,7 @@ const Checkout = () => {
         <span
           data-testid="customer_checkout__element-order-total-price"
         >
-          {totalSum}
+          { total }
         </span>
       </h3>
 
