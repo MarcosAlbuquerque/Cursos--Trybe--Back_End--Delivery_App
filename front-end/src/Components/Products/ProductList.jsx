@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React from 'react';
 import { GET_PRODUCTS } from '../../Api';
 import { CartContext } from '../../CartContext';
@@ -13,7 +14,6 @@ const ProductList = () => {
 
   const { request } = useAxios();
 
-  // eslint-disable-next-line react-hooks/exhaustive-deps
   const requestProducts = async () => {
     const options = GET_PRODUCTS();
     const response = await request(options);
@@ -29,7 +29,6 @@ const ProductList = () => {
     return totalSum.toFixed(2);
   }
 
-  // eslint-disable-next-line react-hooks/exhaustive-deps
   React.useEffect(async () => {
     await requestProducts();
   }, []);
