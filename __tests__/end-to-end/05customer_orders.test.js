@@ -1,4 +1,3 @@
-/* eslint-disable no-useless-escape */
 const moment = require("moment");
 
 const requirement = global.__REQUIREMENTS__;
