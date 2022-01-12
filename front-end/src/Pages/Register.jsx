@@ -22,8 +22,8 @@ function Register() {
     e.preventDefault();
     const options = REGISTER({ name, email, password });
     const response = await request(options);
-
     if (response) {
+      localStorage.setItem('user', JSON.stringify(response.data));
       setRegistered(true);
     } else {
       setRegistered(false);

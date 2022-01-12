@@ -1,17 +1,15 @@
 require('dotenv').config();
 const jwt = require('jsonwebtoken');
-
-// const { readFile } = require('fs');
-// Utilizar o modulo readFile jwt.evaluation.key
+const resultReadFile = require('../../helper/ReadFile');
 
 module.exports = (login) => {
   try {
   const jwtConfig = {
     algorithm: 'HS256',
     expiresIn: '7d',
-  };  
-  const token = jwt.sign(login, 'teste', jwtConfig);
-  return { token };
+  };
+  const token = jwt.sign(login, resultReadFile, jwtConfig);
+  return token;
   } catch (error) {
     return error.message;
   }

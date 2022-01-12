@@ -10,7 +10,6 @@ const useAxios = () => {
       setError(false);
       return response;
     } catch (err) {
-      console.log(err);
       setError(true);
     }
   }, []);
