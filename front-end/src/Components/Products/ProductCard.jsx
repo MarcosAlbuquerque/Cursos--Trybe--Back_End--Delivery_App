@@ -48,10 +48,6 @@ const ProductCard = ({ product }) => {
 
   React.useEffect(() => {
     localStorage.setItem('shoppingCart', JSON.stringify(shoppingCart));
-    // const total = shoppingCart.reduce((acc, curr) => {
-    //   acc += (curr.productQnt * curr.price);
-    //   return acc.toFixed(2);
-    // }, 0);
   }, [shoppingCart]);
 
   return (

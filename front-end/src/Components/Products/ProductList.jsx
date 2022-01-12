@@ -13,25 +13,31 @@ const ProductList = () => {
 
   const { request } = useAxios();
 
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   const requestProducts = async () => {
     const options = GET_PRODUCTS();
     const response = await request(options);
     setProducts(response.data);
   };
 
+  function totalPrice() {
+    const totalSum = shoppingCart
+      .map((item) => parseFloat([Number(item.price) * item.productQnt]).toFixed(2))
+      .map((item) => Number(item))
+      .reduce((acc, cv) => acc + cv, 0);
+    localStorage.setItem('totalSum', totalSum.toFixed(2).replace(/\./, ','));
+    return totalSum.toFixed(2);
+  }
+
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   React.useEffect(async () => {
     await requestProducts();
   }, []);
 
-  const total = shoppingCart
-    .map((item) => parseFloat([Number(item.price) * item.productQnt]).toFixed(2))
-    .map((item) => Number(item))
-    .reduce((acc, cv) => acc + cv, 0);
-
   return (
     <div className={ styles.container }>
       { products.map((product, i) => <ProductCard product={ product } key={ i } />) }
-      <ShopCartButton price={ total.toFixed(2) } />
+      <ShopCartButton price={ totalPrice() } />
     </div>
   );
 };

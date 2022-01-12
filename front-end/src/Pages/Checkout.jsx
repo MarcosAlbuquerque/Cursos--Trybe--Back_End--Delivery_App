@@ -4,7 +4,6 @@ import NavBar from '../Components/Products/NavBar';
 const Checkout = () => {
   const [address, setAddress] = React.useState('');
   const [number, setNumber] = React.useState('');
-  // const [totalPrice, setTotalPrice] = React.useState('');
   console.log(address);
   console.log(number);
 
@@ -12,16 +11,7 @@ const Checkout = () => {
 
   const currentUser = JSON.parse(localStorage.getItem('user'));
   const shoppingCart = JSON.parse(localStorage.getItem('shoppingCart')) || [];
-
-  // function getTotalPrice() {
-  //   const totalPrice = shoppingCart.reduce((acc, curr) => {
-  //     acc += (curr.productQnt * curr.price);
-  //     acc.toFixed(2);
-  //   }, 0);
-  //   setTotalPrice(totalPrice);
-  // }
-
-  // React.useEffect(() => getTotalPrice(), [])
+  const totalSum = localStorage.getItem('totalSum');
 
   return (
     <div>
@@ -67,7 +57,7 @@ const Checkout = () => {
         <span
           data-testid="customer_checkout__element-order-total-price"
         >
-          total aqui
+          {totalSum}
         </span>
       </h3>
 
