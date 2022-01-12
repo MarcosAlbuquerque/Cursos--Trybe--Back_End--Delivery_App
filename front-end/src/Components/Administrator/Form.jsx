@@ -3,6 +3,7 @@ import { CREATE_USER } from '../../Api';
 import useAxios from '../../Hooks/useAxios';
 import emailValidation from '../../Utils/Validations/emailValidation';
 import passwordValidation from '../../Utils/Validations/passwordValidation';
+import nameValidation from '../../Utils/Validations/nameValidation';
 
 const defaultRole = 'Escolha um tipo';
 
@@ -12,6 +13,7 @@ function Form() {
   const [password, setPassword] = React.useState('');
   const [role, setRole] = React.useState(defaultRole);
   const [validCredentials, setValidCredentials] = React.useState(false);
+  const [uniqueUser, setUniqueUser] = React.useState(false);
 
   const { request } = useAxios();
   const { token } = JSON.parse(localStorage.getItem('user'));
@@ -20,16 +22,22 @@ function Form() {
     e.preventDefault();
     const body = { name, email, password, role };
     const options = CREATE_USER(body, token);
-    await request(options);
+    const result = await request(options);
+    if (!result) {
+      setUniqueUser(true);
+    } else {
+      setUniqueUser(false);
+    }
   };
 
   React.useEffect(() => {
     setValidCredentials(
-      emailValidation(email)
+      nameValidation(name)
+      && emailValidation(email)
       && passwordValidation(password)
       && role !== defaultRole,
     );
-  }, [email, password, role]);
+  }, [email, password, role, name]);
 
   return (
     <form onSubmit={ (e) => createUser(e) }>
@@ -39,7 +47,7 @@ function Form() {
           type="text"
           data-testid="admin_manage__input-name"
           name="nome"
-          onBlur={ ({ target }) => setName(target.value) }
+          onChange={ ({ target }) => setName(target.value) }
         />
       </label>
       <label htmlFor="email">
@@ -48,7 +56,7 @@ function Form() {
           type="text"
           data-testid="admin_manage__input-email"
           name="email"
-          onBlur={ ({ target }) => setEmail(target.value) }
+          onChange={ ({ target }) => setEmail(target.value) }
         />
       </label>
       <label htmlFor="senha">
@@ -57,7 +65,7 @@ function Form() {
           type="text"
           data-testid="admin_manage__input-password"
           name="senha"
-          onBlur={ ({ target }) => setPassword(target.value) }
+          onChange={ ({ target }) => setPassword(target.value) }
         />
       </label>
       <label htmlFor="tipo">
@@ -81,6 +89,10 @@ function Form() {
       >
         Cadastrar
       </button>
+      {
+        uniqueUser
+        && <p data-testid="admin_manage__element-invalid-register">Usuário já existe!</p>
+      }
     </form>
   );
 }
