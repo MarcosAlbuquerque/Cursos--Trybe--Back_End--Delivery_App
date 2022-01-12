@@ -6,6 +6,7 @@ const registerValidation = require('../middlewares/RegisterValidation');
 
 router.get('/', tokenValidation, UserController.getAllUsers);
 router.post('/register', registerValidation, UserController.createUser);
+router.post('/create', tokenValidation, UserController.createUser);
 router.put('/:userId', tokenValidation, UserController.updateUser);
 
 module.exports = router;

@@ -9,7 +9,7 @@ import HiddenMessage from './HiddenMessage';
 const Forms = () => {
   const [email, setEmail] = React.useState('');
   const [password, setPassword] = React.useState('');
-  const [logged, setLogged] = React.useState(false);
+  const [logged, setLogged] = React.useState('');
   const [validCredentials, setValidCredentials] = React.useState(false);
 
   const { request, error } = useAxios();
@@ -18,11 +18,17 @@ const Forms = () => {
     e.preventDefault();
     const options = LOGIN({ email, password });
     const response = await request(options);
+    const { role } = response.data;
 
-    if (response) {
-      setLogged(true);
-    } else {
-      setLogged(false);
+    switch (role) {
+    case 'customer':
+      setLogged('customer');
+      break;
+    case 'administrator':
+      setLogged('administrator');
+      break;
+    default:
+      break;
     }
 
     localStorage.setItem('user', JSON.stringify(response.data));
@@ -40,6 +46,7 @@ const Forms = () => {
   return (
     <>
       <p>zebirita@email.com e senha $#zebirita#$</p>
+      <p>adm@deliveryapp.com e senha --adm2@21!!--</p>
       <form onSubmit={ (e) => requestLogin(e) }>
         <label htmlFor="email">
           Email:
@@ -78,7 +85,8 @@ const Forms = () => {
         </Link>
       </form>
       { error ? <HiddenMessage /> : null }
-      { logged && <Navigate to="/customer/products" />}
+      { logged === 'customer' && <Navigate to="/customer/products" />}
+      { logged === 'administrator' && <Navigate to="/admin/manage" />}
     </>
   );
 };

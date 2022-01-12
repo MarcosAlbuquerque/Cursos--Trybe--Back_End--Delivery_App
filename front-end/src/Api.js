@@ -8,6 +8,17 @@ export function LOGIN(body) {
   };
 }
 
+export function CREATE_USER(body, token) {
+  return {
+    method: 'post',
+    url: `${API_URL}/users/create`,
+    headers: {
+      Authorization: token,
+    },
+    data: body,
+  };
+}
+
 export function REGISTER(body) {
   return {
     method: 'post',
