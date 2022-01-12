@@ -1,7 +1,6 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
-import './App.css';
-
+import Administrator from './Pages/Admin';
 import Login from './Pages/Login';
 import Products from './Pages/Products';
 import Register from './Pages/Register';
@@ -18,6 +17,7 @@ function App() {
         <Route path="/customer/products" element={ <Products /> } />
         <Route path="/customer/checkout" element={ <Checkout /> } />
         <Route path="/customer/orders" element={ <Orders /> } />
+        <Route path="/admin/manage" element={ <Administrator /> } />
       </Routes>
     </Router>
   );

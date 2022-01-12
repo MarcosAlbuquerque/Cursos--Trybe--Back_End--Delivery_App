@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 const UserOptions = ({ role }) => {
   const prefix = 'customer_products__';
 
-  const custumerOptions = (
+  const customerOptions = (
     <div>
       <Link to="/customer/products">
         <button type="button" data-testid={ `${prefix}element-navbar-link-products` }>
@@ -41,12 +41,12 @@ const UserOptions = ({ role }) => {
   );
 
   switch (role) {
-  case 'admininstrator':
+  case 'administrator':
     return adminOptions;
   case 'seller':
     return sellerOptions;
   default:
-    return custumerOptions;
+    return customerOptions;
   }
 };
 
