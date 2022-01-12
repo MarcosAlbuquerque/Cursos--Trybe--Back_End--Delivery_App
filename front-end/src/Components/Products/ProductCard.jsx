@@ -10,6 +10,7 @@ const ProductCard = ({ product }) => {
     verifyCartAndIncrease,
     decreaseCart,
     insertInputValueToCart,
+    shoppingCart,
   } = providerValues;
 
   const card = {
@@ -44,6 +45,14 @@ const ProductCard = ({ product }) => {
       insertInputValueToCart(idItem, nameItem, title, productQuantity);
     }
   }
+
+  React.useEffect(() => {
+    localStorage.setItem('shoppingCart', JSON.stringify(shoppingCart));
+    // const total = shoppingCart.reduce((acc, curr) => {
+    //   acc += (curr.productQnt * curr.price);
+    //   return acc.toFixed(2);
+    // }, 0);
+  }, [shoppingCart]);
 
   return (
     <div style={ { display: 'flex' } }>
