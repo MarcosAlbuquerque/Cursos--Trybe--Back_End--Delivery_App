@@ -1,11 +1,14 @@
 import React from 'react';
+import { MAKE_SALE } from '../Api';
+import useAxios from '../Hooks/useAxios';
 import NavBar from '../Components/Products/NavBar';
 
 const Checkout = () => {
-  const [/* address */, setAddress] = React.useState('');
-  const [/* number */, setNumber] = React.useState('');
+  const [deliveryAddress, setDeliveryAddress] = React.useState('');
+  const [deliveryNumber, setDeliveryNumber] = React.useState('');
   const [cart, setCart] = React.useState([]);
   const [total, setTotal] = React.useState(0);
+  const { request } = useAxios();
 
   React.useEffect(() => {
     // Puxa do localStorage
@@ -31,6 +34,23 @@ const Checkout = () => {
     }, 0);
     console.log(newTotalValue);
     setTotal(newTotalValue.toFixed(2).replace(/\./, ','));
+  };
+
+  const makeSale = async () => {
+    const body = {
+      userId: currentUser.id,
+      products: cart,
+      deliveryNumber,
+      deliveryAddress,
+    };
+
+    const options = MAKE_SALE(body, currentUser.token);
+    const result = await request(options);
+
+    if (result) {
+      localStorage.removeItem('shoppingCart');
+      localStorage.removeItem('totalSum');
+    }
   };
 
   return (
@@ -105,7 +125,7 @@ const Checkout = () => {
             id="customer-address"
             type="text"
             data-testid="customer_checkout__input-address"
-            onChange={ (e) => setAddress(e.target.value) }
+            onChange={ (e) => setDeliveryAddress(e.target.value) }
           />
         </label>
 
@@ -115,13 +135,14 @@ const Checkout = () => {
             id="customer-number"
             data-testid="customer_checkout__input-addressNumber"
             type="number"
-            onChange={ (e) => setNumber(e.target.value) }
+            onChange={ (e) => setDeliveryNumber(e.target.value) }
           />
         </label>
 
         <button
           type="button"
           data-testid="customer_checkout__button-submit-order"
+          onClick={ () => makeSale() }
         >
           Finalizar Pedido
         </button>

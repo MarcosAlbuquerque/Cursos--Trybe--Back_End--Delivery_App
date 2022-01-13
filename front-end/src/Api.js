@@ -33,3 +33,14 @@ export function GET_PRODUCTS() {
     url: `${API_URL}/products`,
   };
 }
+
+export function MAKE_SALE(body, token) {
+  return {
+    method: 'post',
+    url: `${API_URL}/customer/sell`,
+    data: body,
+    headers: {
+      Authorization: token,
+    },
+  };
+}
