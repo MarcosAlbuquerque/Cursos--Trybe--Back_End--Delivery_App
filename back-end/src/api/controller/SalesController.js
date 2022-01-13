@@ -12,9 +12,16 @@ class SalesController {
     // } catch (e) {
     //   return res.status(400).json(e.message);
     // }
-    const newSale = { ...req.body }
+
+    // .1 userId
+    // .7 sellerId
+    // .2 products
+    // .3 deliveryNumber
+    // .4 deliveryAddress
+    const newSale = { ...req.body };
     try {
-      const createSale = await db.sales.create(newSale)
+      const createSale = await db.sales.create(newSale);
+      
     } catch (error) {
       
     }

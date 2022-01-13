@@ -9,7 +9,6 @@ module.exports = (sequelize, DataTypes) => {
     delivery_number: DataTypes.STRING,
     sale_date: DataTypes.DATE,
     status: DataTypes.STRING,
-    sale_date: DataTypes.DATE,
   }, {
     createdAt: 'sale_date',
     updatedAt: false,
