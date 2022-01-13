@@ -19,9 +19,32 @@ class SalesController {
     // .3 deliveryNumber
     // .4 deliveryAddress
     const newSale = { ...req.body };
+    const { token } = req.headers.authorization;
+
     try {
-      const createSale = await db.sales.create(newSale);
+      // const createSale = await db.sales.create(newSale);
+      const createSale = async () => {
+        const { userId, sellerId, products, deliveryNumber, deliveryAddress } = newSale;
+        // try {
+        //   tokenValidation.tokenFieldValidation(authorization);
+        //   createSaleValidatiton.validPostFields({ title, content, categoryIds });
+        //   await verifyCategoryExists(categoryIds);
+        //   const { id: userId } = createSaleValidatiton.getUserFromToken(authorization);
+    
+          const createdProductd = await sales.create({
+            userId, sellerId, deliveryNumber, deliveryAddress
+          });
+
+          // const { id: saleId } = createdProductd;
       
+          await products.forEach(async ({ id, productQnt }) => {
+            await PostsCategories.create({ /* saleId, */ product_id: id, quantity: productQnt });
+          });
+          return response;
+        // } catch (e) {
+          // return { error: { message: e.message, code: e.code } };
+        // }
+      };
     } catch (error) {
       
     }
