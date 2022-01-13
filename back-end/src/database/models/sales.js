@@ -7,11 +7,13 @@ module.exports = (sequelize, DataTypes) => {
     total_price: DataTypes.DECIMAL(9, 2),
     delivery_address: DataTypes.STRING,
     delivery_number: DataTypes.STRING,
-    sale_date: DataTypes.DATE,
+    sale_date: {
+      type: DataTypes.DATE,
+      defaultValue: DataTypes.NOW,
+    },
     status: DataTypes.STRING,
   }, {
-    createdAt: 'sale_date',
-    updatedAt: false,
+    timestamp: false,
   });
   
   Sales.associate = function(models) {
