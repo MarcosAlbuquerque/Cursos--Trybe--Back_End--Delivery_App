@@ -1,5 +1,6 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React from 'react';
-import { MAKE_SALE } from '../Api';
+import { GET_SELLERS, MAKE_SALE } from '../Api';
 import useAxios from '../Hooks/useAxios';
 import NavBar from '../Components/Products/NavBar';
 
@@ -8,7 +9,9 @@ const Checkout = () => {
   const [deliveryNumber, setDeliveryNumber] = React.useState('');
   const [cart, setCart] = React.useState([]);
   const [total, setTotal] = React.useState(0);
+  const [seller, setSeller] = React.useState([]);
   const { request } = useAxios();
+  console.log(seller);
 
   React.useEffect(() => {
     // Puxa do localStorage
@@ -18,6 +21,16 @@ const Checkout = () => {
     // Insere total no useState
     const totalSum = localStorage.getItem('totalSum');
     setTotal(totalSum);
+  }, []);
+
+  const getAllSellers = async () => {
+    const options = GET_SELLERS();
+    const response = await request(options);
+    setSeller(response.data);
+  };
+
+  React.useEffect(async () => {
+    await getAllSellers();
   }, []);
 
   const prefix = 'customer_checkout__element-order-table-';
@@ -115,7 +128,10 @@ const Checkout = () => {
             name="sellers"
             id="sellers"
           >
-            <option value="pendente">pendente</option>
+            {seller.map((user) => (
+              <option key={ user.id } value={ user.name }>
+                {user.name}
+              </option>))}
           </select>
         </label>
 

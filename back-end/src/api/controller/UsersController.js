@@ -12,6 +12,15 @@ class UserController {
     }
   }
 
+  static async getAllSellers(_req, res) {
+    try {
+      const allSellers = await db.users.findAll({ where: { role: 'seller' }});
+      return res.status(200).json(allSellers);
+    } catch (error) {
+      return res.status(400).json(error.message);
+    }
+  }
+
   static async createUser(req, res) {
     const newUser = { ...req.body, password: md5(req.body.password) };
     try {

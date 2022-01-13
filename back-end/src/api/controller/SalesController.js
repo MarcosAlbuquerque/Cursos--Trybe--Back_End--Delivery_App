@@ -1,19 +1,28 @@
-// const db = require('../../database/models');
+const db = require("../../database/models");
 
 class SalesController {
   static async createSale(req, res) {
-    // Informacoes que vem do front:
-    // .1 userId
-    // .2 products
-    // .3 deliveryNumber
-    // .4 deliveryAddress
+    // const newUser = { ...req.body, password: md5(req.body.password) };
+    // try {
+    //   const created = await db.users.create(newUser);
+    //   const { id, name, email, role } = created;
+    //   const token = JWTgenerate({ id, name, email, role });
+    //   return res.status(201).json({
+    //     name, email, role, token });
+    // } catch (e) {
+    //   return res.status(400).json(e.message);
+    // }
+    const newSale = { ...req.body }
+    try {
+      const createSale = await db.sales.create(newSale)
+    } catch (error) {
+      
+    }
 
     // Informacoes que serao atribuidas automaticamente
     // .5 date
     // .6 Status do pedido = 'pendente'
     
-    // Informacoes ainda desconhecidas
-    // .7 sellerId
     // const chosenProducts = req.body;
 
     try {

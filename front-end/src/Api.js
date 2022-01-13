@@ -8,6 +8,13 @@ export function LOGIN(body) {
   };
 }
 
+export function GET_SELLERS() {
+  return {
+    method: 'get',
+    url: `${API_URL}/users/sellers`,
+  };
+}
+
 export function CREATE_USER(body, token) {
   return {
     method: 'post',
