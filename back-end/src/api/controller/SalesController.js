@@ -14,11 +14,10 @@ class SalesController {
     
     // Informacoes ainda desconhecidas
     // .7 sellerId
-
-    const chosenProducts = req.body;
+    // const chosenProducts = req.body;
 
     try {
-      const result = await db.sales.create();
+      // const result = await db.sales.create();
       return res.status(201).json({ message: 'Sale created successfully' });
     } catch (error) {
       return res.status(400).json(error.message);
