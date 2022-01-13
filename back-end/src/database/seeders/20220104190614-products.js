@@ -70,7 +70,7 @@ module.exports = {
         url_image:'http://localhost:3001/images/stella_artois_275ml.jpg',
       },
     ], {
-      timestamp: false,
+      timestamps: false,
     });
   },
 

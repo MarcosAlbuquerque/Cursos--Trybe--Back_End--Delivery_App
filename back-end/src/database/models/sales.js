@@ -16,7 +16,7 @@ module.exports = (sequelize, DataTypes) => {
       defaultValue: 'pendente',
     },
   }, {
-    timestamp: false,
+    timestamps: false,
   });
   
   Sales.associate = function(models) {

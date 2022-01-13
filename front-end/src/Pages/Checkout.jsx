@@ -1,5 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React from 'react';
+// import { useNavigate } from 'react-router-dom';
 import { GET_SELLERS, MAKE_SALE } from '../Api';
 import useAxios from '../Hooks/useAxios';
 import NavBar from '../Components/Products/NavBar';
@@ -10,8 +11,10 @@ const Checkout = () => {
   const [cart, setCart] = React.useState([]);
   const [total, setTotal] = React.useState(0);
   const [seller, setSeller] = React.useState([]);
+  const [sellerId, setSellerId] = React.useState(null);
+
   const { request } = useAxios();
-  console.log(seller);
+  // const navigate = useNavigate();
 
   React.useEffect(() => {
     // Puxa do localStorage
@@ -52,9 +55,11 @@ const Checkout = () => {
   const makeSale = async () => {
     const body = {
       userId: currentUser.id,
+      sellerId: Number(sellerId),
       products: cart,
       deliveryNumber,
       deliveryAddress,
+      totalPrice: total,
     };
 
     const options = MAKE_SALE(body, currentUser.token);
@@ -63,7 +68,10 @@ const Checkout = () => {
     if (result) {
       localStorage.removeItem('shoppingCart');
       localStorage.removeItem('totalSum');
+      console.log({ result }, 'lindo result');
+      // navigate(`/costumer/orders/${result.data.success.id}`);
     }
+    console.log({ result }, 'result faiou');
   };
 
   return (
@@ -127,9 +135,13 @@ const Checkout = () => {
             data-testid="customer_checkout__select-seller"
             name="sellers"
             id="sellers"
+            onClick={ ({ target }) => setSellerId(target.value) }
           >
             {seller.map((user) => (
-              <option key={ user.id } value={ user.name }>
+              <option
+                key={ user.id }
+                value={ user.id }
+              >
                 {user.name}
               </option>))}
           </select>
