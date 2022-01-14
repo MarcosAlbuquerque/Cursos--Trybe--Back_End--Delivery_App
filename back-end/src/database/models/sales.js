@@ -13,7 +13,7 @@ module.exports = (sequelize, DataTypes) => {
     },
     status: {
       type: DataTypes.STRING,
-      defaultValue: 'pendente',
+      defaultValue: 'Pendente',
     },
   }, {
     timestamps: false,
