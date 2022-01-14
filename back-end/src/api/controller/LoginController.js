@@ -14,7 +14,7 @@ class LoginController {
       const { id, email, name, role } = user;
       const token = JWTgenerate({ id, email, name, role });
       return res.status(200).json({
-        name, email, role, token,
+        id, name, email, role, token,
       });
     } catch (error) {
       return res.status(400).json(error.message);
