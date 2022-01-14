@@ -1,6 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React from 'react';
-// import { useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { GET_SELLERS, MAKE_SALE } from '../Api';
 import useAxios from '../Hooks/useAxios';
 import NavBar from '../Components/Products/NavBar';
@@ -14,7 +14,7 @@ const Checkout = () => {
   const [sellerId, setSellerId] = React.useState(null);
 
   const { request } = useAxios();
-  // const navigate = useNavigate();
+  const navigate = useNavigate();
 
   React.useEffect(() => {
     // Puxa do localStorage
@@ -53,8 +53,9 @@ const Checkout = () => {
   };
 
   const makeSale = async () => {
+    console.log(currentUser);
     const body = {
-      userId: currentUser.id,
+      userId: Number(currentUser.id),
       sellerId: Number(sellerId),
       products: cart,
       deliveryNumber,
@@ -67,11 +68,12 @@ const Checkout = () => {
 
     if (result) {
       localStorage.removeItem('shoppingCart');
-      localStorage.removeItem('totalSum');
+      localStorage.removeItem('total');
       console.log({ result }, 'lindo result');
-      // navigate(`/costumer/orders/${result.data.success.id}`);
+      navigate(`/costumer/orders/${result.data.success.id}`);
+    } else {
+      console.log({ result }, 'result faiou');
     }
-    console.log({ result }, 'result faiou');
   };
 
   return (
