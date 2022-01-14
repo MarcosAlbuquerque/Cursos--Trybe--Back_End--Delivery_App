@@ -27,6 +27,38 @@ class SalesController {
       return res.status(400).json({ message: 'Erro ao criar venda' });
     }
   }
+
+  static async getSaleDetailsById(req, res) {
+    const { id } = req.params;
+    try {
+      const sale = await db.sales.findOne({
+        where: { id },
+        include: [
+          {
+            model: db.users,
+            as: 'seller',
+            attributes: ['name'],
+          },
+          {
+            model: db.salesProducts,
+            as: 'products',
+            include: [
+              {
+                model: db.products,
+                as: 'product',
+                attributes: ['name', 'price', 'url_image' ],
+              },
+            ],
+          },
+        ],
+      });
+
+      return res.status(200).json({ success: { message: 'Venda encontrada', sale } });
+    } catch (error) {
+      console.log(error);
+      return res.status(400).json({ message: 'Erro ao buscar venda' });
+    }
+  }
 }
 
 module.exports = SalesController;

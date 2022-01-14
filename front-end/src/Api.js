@@ -44,10 +44,17 @@ export function GET_PRODUCTS() {
 export function MAKE_SALE(body, token) {
   return {
     method: 'post',
-    url: `${API_URL}/customer/sell`,
+    url: `${API_URL}/sales`,
     data: body,
     headers: {
       Authorization: token,
     },
+  };
+}
+
+export function GET_SALE_DETAILS(id) {
+  return {
+    method: 'get',
+    url: `${API_URL}/sales/${id}`,
   };
 }
