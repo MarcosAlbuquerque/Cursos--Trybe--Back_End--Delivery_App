@@ -13,7 +13,7 @@ class SalesController {
         sellerId,
         deliveryAddress,
         deliveryNumber,
-        totalPrice: parseFloat(totalPrice),
+        totalPrice: parseFloat(totalPrice.replace(/,/, '.')),
       });
 
       const { id } = saleResult;
