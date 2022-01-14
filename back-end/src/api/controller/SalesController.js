@@ -47,9 +47,10 @@ class SalesController {
         ],
       });
 
+      if(!sale) throw new Error();
+
       return res.status(200).json({ success: { message: 'Venda encontrada', sale } });
     } catch (error) {
-      console.log(error);
       return res.status(400).json({ message: 'Erro ao buscar venda' });
     }
   }
