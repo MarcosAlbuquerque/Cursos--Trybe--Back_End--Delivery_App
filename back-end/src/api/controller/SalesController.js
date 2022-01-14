@@ -40,15 +40,9 @@ class SalesController {
             attributes: ['name'],
           },
           {
-            model: db.salesProducts,
+            model: db.products,
             as: 'products',
-            include: [
-              {
-                model: db.products,
-                as: 'product',
-                attributes: ['name', 'price', 'url_image' ],
-              },
-            ],
+            attributes: ['name', 'price', 'url_image' ],
           },
         ],
       });

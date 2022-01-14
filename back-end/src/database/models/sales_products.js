@@ -36,7 +36,10 @@ module.exports = (sequelize, DataTypes) => {
       foreignKey: 'sale_id',
       otherKey: 'product_id',
     });
-  };
 
+  }
+
+
+  // salesProducts is not associated to sales!
   return sales_products;
 };
