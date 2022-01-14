@@ -10,7 +10,7 @@ const arraySales = [
 const CustomerOrders = () => {
   const [sales] = React.useState(arraySales);
 
-  console.log({ shoppingCart });
+  // console.log({ shoppingCart });
   // eslint-disable-next-line no-magic-numbers
 
   return (
