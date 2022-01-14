@@ -30,6 +30,7 @@ const Checkout = () => {
     const options = GET_SELLERS();
     const response = await request(options);
     setSeller(response.data);
+    setSellerId(response.data[0].id);
   };
 
   React.useEffect(async () => {
@@ -70,7 +71,7 @@ const Checkout = () => {
       localStorage.removeItem('shoppingCart');
       localStorage.removeItem('total');
       console.log({ result }, 'lindo result');
-      navigate(`/costumer/orders/${result.data.success.id}`);
+      navigate(`/customer/orders/${result.data.success.id}`);
     } else {
       console.log({ result }, 'result faiou');
     }

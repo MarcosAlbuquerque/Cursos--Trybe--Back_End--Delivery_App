@@ -1,13 +1,6 @@
 const db = require("../../database/models");
 
-
-const createCorrectArray = (allProducts, saleId) => {
-  return allProducts.map(({ id: productId, productQnt }) => ({
-    sale_id: saleId,
-    product_id: productId,
-    quantity: productQnt,
-  }));
-};
+const createCorrectArray = require('../../utils/createCorrectArray');
 
 class SalesController {
   static async createSale(req, res) {
@@ -15,31 +8,27 @@ class SalesController {
     let currentIdSale;
 
     try {
-        const saleResult = await db.sales.create(
-          {
-            user_id: userId,
-            seller_id: sellerId,
-            delivery_address: deliveryAddress,
-            delivery_number: deliveryNumber,
-            total_price: parseFloat(totalPrice),
-          }
-        );
+      const saleResult = await db.sales.create(
+        {
+          user_id: userId,
+          seller_id: sellerId,
+          delivery_address: deliveryAddress,
+          delivery_number: deliveryNumber,
+          total_price: parseFloat(totalPrice),
+        }
+      );
 
-        const { id } = saleResult;
-        currentIdSale = id;
-       
-          const formatedArray = await createCorrectArray(products, id);
-          console.log(products);
-          console.log({ formatedArray });
-
-        await db.salesProducts.bulkCreate(formatedArray);
+      const { id } = saleResult;
+      currentIdSale = id;
+      
+      const formatedArray = await createCorrectArray(products, id);
+      await db.salesProducts.bulkCreate(formatedArray);
 
       return res.status(201).json({ success: {
         message: "Venda realizada com sucesso",
         id: currentIdSale,
       } });
     } catch (error) {
-      console.log(error);
       return res.status(400).json({ message: "Erro ao criar venda" });
     }
   }
