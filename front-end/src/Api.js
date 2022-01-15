@@ -68,3 +68,13 @@ export function GET_ORDERS_BY_USER_ID(id) {
     },
   };
 }
+
+export function GET_ORDERS_BY_SELLER(id) {
+  return {
+    method: 'get',
+    url: `${API_URL}/seller/orders`,
+    headers: {
+      id,
+    },
+  };
+}

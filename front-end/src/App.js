@@ -22,6 +22,7 @@ function App() {
         <Route path="/customer/orders/:id" element={ <OrderDetails /> } />
         <Route path="/admin/manage" element={ <Administrator /> } />
         <Route path="/seller/orders" element={ <Seller /> } />
+        <Route path="/seller/orders/:id" element={ <h1>order details</h1> } />
       </Routes>
     </Router>
   );
