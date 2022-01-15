@@ -24,7 +24,7 @@ export default function Orders() {
       <div>
         <CartStorage>
           <NavBar user={ currentUser } />
-          <CustomerOrders />
+          <CustomerOrders userId={ currentUser.id } />
         </CartStorage>
       </div>
     )

@@ -49,6 +49,19 @@ class UserController {
       return res.status(400).json(error.message);
     }
   }
+
+  static async getOrdersByUserId(req, res) {
+    try {
+      const orders = await db.sales.findAll({ where: { userId: req.headers.id } });
+
+      if(!orders) throw new Error();
+
+      return res.status(200).json({ success: { message: 'Vendas encontradas', orders } });
+    } catch (error) {
+      console.log(error);
+      return res.status(400).json({ message: 'Erro ao buscar vendas' });
+    }
+  }
 }
 
 module.exports = UserController;

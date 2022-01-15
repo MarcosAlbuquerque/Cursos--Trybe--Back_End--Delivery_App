@@ -58,3 +58,13 @@ export function GET_SALE_DETAILS(id) {
     url: `${API_URL}/sales/${id}`,
   };
 }
+
+export function GET_ORDERS_BY_USER_ID(id) {
+  return {
+    method: 'get',
+    url: `${API_URL}/users/orders`,
+    headers: {
+      id,
+    },
+  };
+}

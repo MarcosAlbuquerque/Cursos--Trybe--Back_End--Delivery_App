@@ -1,23 +1,31 @@
+/* eslint-disable react/prop-types */
 import React from 'react';
+import { GET_ORDERS_BY_USER_ID } from '../../Api';
+import useAxios from '../../Hooks/useAxios';
+import formatDate from '../../Utils/formatDate';
 
-const arraySales = [
-  { id: 1, status: 'pendente', data: '20/03/2019', valor: '32.12' },
-  { id: 2, status: 'pendente', data: '11/02/2020', valor: '32.12' },
-  { id: 3, status: 'pendente', data: '15/11/2021', valor: '32.12' },
-  { id: 4, status: 'pendente', data: '02/05/2022', valor: '32.12' },
-];
+const CustomerOrders = ({ userId }) => {
+  const { request } = useAxios();
+  const [orders, setOrders] = React.useState([]);
 
-const CustomerOrders = () => {
-  const [sales] = React.useState(arraySales);
+  // O maldito do axios nao permite mandar um body em requisicoes get
+  // Source: https://github.com/axios/axios
+  React.useEffect(async () => {
+    const options = GET_ORDERS_BY_USER_ID(userId);
+    // eslint-disable-next-line no-unused-vars
+    const result = await request(options);
+    setOrders(result.data.success.orders);
+    console.log(result.data.success.orders);
+  }, []);
 
   return (
     <section>
-      {sales.map((item, i) => (
+      {orders.map((item, i) => (
         <div key={ i }>
           <div>
             <strong>Pedido</strong>
             <p data-testid={ `customer_orders__element-order-id-${item.id}` }>
-              {`00${item.id}`}
+              {`${item.id}`}
             </p>
           </div>
           <div data-testid={ `customer_orders__element-delivery-status-${item.id}` }>
@@ -25,10 +33,12 @@ const CustomerOrders = () => {
           </div>
           <div>
             <span data-testid={ `customer_orders__element-order-date-${item.id}` }>
-              {item.data}
+              {formatDate(item.saleDate)}
             </span>
-            <span data-testid={ `customer_orders__element-card-price-${item.id}` }>
-              {item.valor}
+            <span
+              data-testid={ `customer_orders__element-card-price-${item.id}` }
+            >
+              {item.totalPrice.replace(/\./, ',')}
             </span>
           </div>
         </div>
