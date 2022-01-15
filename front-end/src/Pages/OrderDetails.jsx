@@ -3,13 +3,18 @@ import { useParams } from 'react-router-dom';
 import { GET_SALE_DETAILS } from '../Api';
 import useAxios from '../Hooks/useAxios';
 import NavBar from '../Components/Products/NavBar';
-import HeaderTable from '../Components/OrderDetails/HeaderTable';
-
-const table = 'customer_order_details__element-order-table';
-const details = 'customer_order_details__element-order-details-label-';
+import OrderDescription from '../Components/OrderDetails/OrderDescription';
+import ProductRow from '../Components/OrderDetails/ProductRow';
 
 function OrderDetails() {
   const [orderProducts, setOrderProducts] = React.useState([]);
+  const [orderInfo, setOrderInfo] = React.useState({
+    saleId: '',
+    sellerName: '',
+    saleDate: '',
+    status: '',
+  });
+  const [value, setTotalValue] = React.useState(0);
 
   const currentUser = JSON.parse(localStorage.getItem('user'));
   const { id } = useParams();
@@ -19,47 +24,53 @@ function OrderDetails() {
     const options = GET_SALE_DETAILS(id);
     const response = await request(options);
 
-    console.log(response);
-  }, [id, request]);
+    if (response) {
+      const { sale } = response.data.success;
 
-  const renderOrderTable = () => (
-    <table>
-      <thead>
-        <tr>
-          <th>Item</th>
-          <th>Descricao</th>
-          <th>Quantidade</th>
-          <th>Preco unitario</th>
-          <th>Sub-total</th>
-        </tr>
-        {
-          cart.map(({ name, price, productQnt }, i) => (
-            <tr key={ name }>
-              <td data-testid={ `${table}table-item-number-${i}` }>{i + 1}</td>
-              <td data-testid={ `${table}name-${i}` }>{name}</td>
-              <td data-testid={ `${table}quantity-${i}` }>{productQnt}</td>
-              <td
-                data-testid={ `${table}unit-price-${i}` }
-              >
-                {Number(price).toFixed(2).replace(/\./, ',')}
-              </td>
-              <td
-                data-testid={ `${table}sub-total-${i}` }
-              >
-                {`${(productQnt * price).toFixed(2)}`.replace(/\./, ',')}
-              </td>
-            </tr>
-          ))
-        }
-      </thead>
-    </table>
-  );
+      // Informacoes do vendedor e pedido
+      setOrderInfo({
+        saleId: sale.id,
+        sellerName: sale.seller.name,
+        saleDate: sale.saleDate,
+        status: sale.status,
+      });
+
+      // Array de produtos
+      setOrderProducts(sale.products);
+
+      // Seta valor total do pedido
+      console.log(sale.totalPrice);
+      setTotalValue(sale.totalPrice);
+    }
+
+    console.log();
+  }, [id, request]);
 
   return (
     <div>
       <NavBar user={ currentUser } />
-      <HeaderTable />
-      <p>Total price</p>
+      <OrderDescription orderInfo={ orderInfo } />
+      <table>
+        <thead>
+          <tr>
+            <th>Item</th>
+            <th>Descricao</th>
+            <th>Quantidade</th>
+            <th>Preco unitario</th>
+            <th>Sub-total</th>
+          </tr>
+          {
+            orderProducts.map((product, i) => (
+              <ProductRow key={ i } product={ product } index={ i } />
+            ))
+          }
+        </thead>
+      </table>
+      <div>
+        <p>
+          {`${parseFloat(value).toFixed(2).replace(/\./, ',')}`}
+        </p>
+      </div>
     </div>
   );
 }

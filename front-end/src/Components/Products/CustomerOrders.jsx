@@ -16,18 +16,18 @@ const CustomerOrders = () => {
         <div key={ i }>
           <div>
             <strong>Pedido</strong>
-            <p data-testid={ `"customer_orders__element-order-id-${item.id}"` }>
+            <p data-testid={ `customer_orders__element-order-id-${item.id}` }>
               {`00${item.id}`}
             </p>
           </div>
-          <div data-testid={ `"customer_orders__element-delivery-status-${item.id}"` }>
+          <div data-testid={ `customer_orders__element-delivery-status-${item.id}` }>
             {item.status}
           </div>
           <div>
-            <span data-testid={ `"customer_orders__element-order-date-${item.id}"` }>
+            <span data-testid={ `customer_orders__element-order-date-${item.id}` }>
               {item.data}
             </span>
-            <span data-testid={ `"customer_orders__element-card-price-${item.id}"` }>
+            <span data-testid={ `customer_orders__element-card-price-${item.id}` }>
               {item.valor}
             </span>
           </div>
