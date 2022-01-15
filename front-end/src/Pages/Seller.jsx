@@ -5,6 +5,8 @@ import NavBar from '../Components/Products/NavBar';
 function Seller() {
   const currentUser = JSON.parse(localStorage.getItem('user'));
 
+  React.useEffect(() => {}, []);
+
   return (
     <div>
       <NavBar user={ currentUser } />
