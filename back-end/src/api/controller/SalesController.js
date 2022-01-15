@@ -34,20 +34,12 @@ class SalesController {
       const sale = await db.sales.findOne({
         where: { id },
         include: [
-          {
-            model: db.users,
-            as: 'seller',
-            attributes: ['name'],
-          },
-          {
-            model: db.products,
-            as: 'products',
-            attributes: ['name', 'price', 'url_image' ],
-          },
+          { model: db.users, as: 'seller', attributes: ['name'] },
+          { model: db.products, as: 'products', attributes: ['name', 'price', 'url_image'] },
         ],
       });
 
-      if(!sale) throw new Error();
+      if (!sale) throw new Error();
 
       return res.status(200).json({ success: { message: 'Venda encontrada', sale } });
     } catch (error) {

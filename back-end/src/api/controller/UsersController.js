@@ -54,7 +54,7 @@ class UserController {
     try {
       const orders = await db.sales.findAll({ where: { userId: req.headers.id } });
 
-      if(!orders) throw new Error();
+      if (!orders) throw new Error();
 
       return res.status(200).json({ success: { message: 'Vendas encontradas', orders } });
     } catch (error) {
