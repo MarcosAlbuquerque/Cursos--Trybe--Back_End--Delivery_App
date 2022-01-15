@@ -18,7 +18,7 @@ function OrderCard({ orderInfo }) {
     <div
       // https://github.com/jsx-eslint/eslint-plugin-jsx-a11y/blob/566011b89df811b95bc4e99799a5ea03d440411d/docs/rules/interactive-supports-focus.md
       onClick={ () => goToOrderDetails(orderId) }
-      onKeyPress={ () => goToOrderDetails() }
+      onKeyPress={ () => goToOrderDetails(orderId) }
       tabIndex={ 0 }
       role="button"
     >

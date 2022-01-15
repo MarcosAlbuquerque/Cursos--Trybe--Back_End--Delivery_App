@@ -8,6 +8,7 @@ import Checkout from './Pages/Checkout';
 import Orders from './Pages/Orders';
 import OrderDetails from './Pages/OrderDetails';
 import Seller from './Pages/Seller';
+import SellerOrderDetails from './Pages/SellerOrderDetails';
 
 function App() {
   return (
@@ -22,7 +23,7 @@ function App() {
         <Route path="/customer/orders/:id" element={ <OrderDetails /> } />
         <Route path="/admin/manage" element={ <Administrator /> } />
         <Route path="/seller/orders" element={ <Seller /> } />
-        <Route path="/seller/orders/:id" element={ <h1>order details</h1> } />
+        <Route path="/seller/orders/:id" element={ <SellerOrderDetails /> } />
       </Routes>
     </Router>
   );
