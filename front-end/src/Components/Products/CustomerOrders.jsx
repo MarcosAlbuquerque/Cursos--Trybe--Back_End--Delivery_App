@@ -1,6 +1,6 @@
-/* eslint-disable react/prop-types */
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
+import { PropTypes } from 'prop-types';
 import { GET_ORDERS_BY_USER_ID } from '../../Api';
 import useAxios from '../../Hooks/useAxios';
 import formatDate from '../../Utils/formatDate';
@@ -60,3 +60,7 @@ const CustomerOrders = ({ userId }) => {
 };
 
 export default CustomerOrders;
+
+CustomerOrders.propTypes = {
+  userId: PropTypes.number.isRequired,
+};
