@@ -67,7 +67,7 @@ describe(requirement(22), () => {
   });
 });
 
-describe.only(requirement(23), () => {
+describe(requirement(23), () => {
   test("O avaliador ira testar se os dados associados aos data-testids dos dez primeiros itens batem com os do banco de dados", async () => {
     for (const { id, status, sale_date: saleDate, total_price: totalPrice } of orderList) {
       await expect(page).toGetTextFromElement(

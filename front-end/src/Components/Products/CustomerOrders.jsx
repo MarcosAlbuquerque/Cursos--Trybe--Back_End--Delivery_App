@@ -1,10 +1,12 @@
 /* eslint-disable react/prop-types */
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import { GET_ORDERS_BY_USER_ID } from '../../Api';
 import useAxios from '../../Hooks/useAxios';
 import formatDate from '../../Utils/formatDate';
 
 const CustomerOrders = ({ userId }) => {
+  const navigate = useNavigate();
   const { request } = useAxios();
   const [orders, setOrders] = React.useState([]);
 
@@ -18,10 +20,20 @@ const CustomerOrders = ({ userId }) => {
     console.log(result.data.success.orders);
   }, []);
 
+  function goToOrder(orderId) {
+    navigate(`/customer/orders/${orderId}`);
+  }
+
   return (
     <section>
       {orders.map((item, i) => (
-        <div key={ i }>
+        <div
+          tabIndex={ 0 }
+          role="button"
+          key={ i }
+          onClick={ () => goToOrder(item.id) }
+          onKeyPress={ () => goToOrder(item.id) }
+        >
           <div>
             <strong>Pedido</strong>
             <p data-testid={ `customer_orders__element-order-id-${item.id}` }>
