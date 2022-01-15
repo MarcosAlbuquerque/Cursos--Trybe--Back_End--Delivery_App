@@ -1,16 +1,21 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 const UserOptions = ({ role }) => {
   const prefix = 'customer_products__';
 
   const customerOptions = (
     <div>
-      <button type="button" data-testid={ `${prefix}element-navbar-link-products` }>
-        Produtos
-      </button>
-      <button type="button" data-testid={ `${prefix}element-navbar-link-orders` }>
-        Meus pedidos
-      </button>
+      <Link to="/customer/products">
+        <button type="button" data-testid={ `${prefix}element-navbar-link-products` }>
+          Produtos
+        </button>
+      </Link>
+      <Link to="/customer/orders">
+        <button type="button" data-testid={ `${prefix}element-navbar-link-orders` }>
+          Meus pedidos
+        </button>
+      </Link>
     </div>
   );
 

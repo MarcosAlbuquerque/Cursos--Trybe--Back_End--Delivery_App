@@ -9,8 +9,6 @@ export const CartStorage = ({ children }) => {
   const [shoppingCart, setShoppingCart] = React.useState([]);
   const [qntItems, setQntItems] = React.useState({});
 
-  console.log({ shoppingCart });
-
   function verifyCartAndIncrease(idItem, nameItem, price) {
     const cartItens = {
       id: idItem,

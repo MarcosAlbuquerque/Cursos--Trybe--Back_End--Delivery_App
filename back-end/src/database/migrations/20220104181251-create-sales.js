@@ -48,10 +48,8 @@ module.exports = {
         type: Sequelize.STRING,
         allowNull: false,
       },
-      sale_date: {
-        type: Sequelize.DATE,
-        allowNull: false,
-      },
+    }, {
+      timestamps: false,
     });
   },
   down: async (queryInterface, Sequelize) => {

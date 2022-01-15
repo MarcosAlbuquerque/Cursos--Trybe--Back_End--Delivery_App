@@ -12,6 +12,15 @@ class UserController {
     }
   }
 
+  static async getAllSellers(_req, res) {
+    try {
+      const allSellers = await db.users.findAll({ where: { role: 'seller' } });
+      return res.status(200).json(allSellers);
+    } catch (error) {
+      return res.status(400).json(error.message);
+    }
+  }
+
   static async createUser(req, res) {
     const newUser = { ...req.body, password: md5(req.body.password) };
     try {
@@ -19,7 +28,7 @@ class UserController {
       const { id, name, email, role } = created;
       const token = JWTgenerate({ id, name, email, role });
       return res.status(201).json({
-        name, email, role, token });
+        id, name, email, role, token });
     } catch (e) {
       return res.status(400).json(e.message);
     }
@@ -38,6 +47,19 @@ class UserController {
       return res.status(201).json(token);
     } catch (error) {
       return res.status(400).json(error.message);
+    }
+  }
+
+  static async getOrdersByUserId(req, res) {
+    try {
+      const orders = await db.sales.findAll({ where: { userId: req.headers.id } });
+
+      if (!orders) throw new Error();
+
+      return res.status(200).json({ success: { message: 'Vendas encontradas', orders } });
+    } catch (error) {
+      console.log(error);
+      return res.status(400).json({ message: 'Erro ao buscar vendas' });
     }
   }
 }
