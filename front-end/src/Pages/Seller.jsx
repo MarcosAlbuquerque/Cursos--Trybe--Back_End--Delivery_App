@@ -14,12 +14,7 @@ function Seller() {
   React.useEffect(async () => {
     const options = GET_ORDERS_BY_SELLER(currentUser.id);
     const result = await request(options);
-
     const { sales } = result.data.success;
-
-    // console.log(sales);
-    // console.log(result);
-
     setOrders(sales);
   }, []);
 

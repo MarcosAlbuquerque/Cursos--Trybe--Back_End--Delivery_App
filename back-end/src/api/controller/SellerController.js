@@ -7,10 +7,6 @@ class SellerController {
     try {
       const sales = await db.sales.findAll({
         where: { sellerId: id },
-        // include: [
-        //   { model: db.users, as: 'seller', attributes: ['name'] },
-        //   { model: db.products, as: 'products', attributes: ['name', 'price', 'url_image'] },
-        // ],
       });
 
       if (!sales) throw new Error();
