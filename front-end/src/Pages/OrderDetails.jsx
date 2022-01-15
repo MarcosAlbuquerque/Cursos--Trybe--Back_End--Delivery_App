@@ -67,7 +67,9 @@ function OrderDetails() {
         </thead>
       </table>
       <div>
-        <p>
+        <p
+          data-testid="customer_order_details__element-order-total-price"
+        >
           {`${parseFloat(value).toFixed(2).replace(/\./, ',')}`}
         </p>
       </div>

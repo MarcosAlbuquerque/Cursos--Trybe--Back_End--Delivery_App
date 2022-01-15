@@ -8,9 +8,9 @@ function HeaderTable({ orderInfo }) {
   return (
     <div>
       <h2>Detalhes do pedido</h2>
-      <div data-testid={ `${details}label-order-id` }>{`Pedido N. ${saleId}`}</div>
-      <div data-testid={ `${details}label-seller-name` }>{`P. Vend: ${sellerName}`}</div>
-      <div data-testid={ `${details}label-order-date` }>{`Data: ${saleDate}`}</div>
+      <div data-testid={ `${details}order-id` }>{`Pedido N. ${saleId}`}</div>
+      <div data-testid={ `${details}seller-name` }>{`P. Vend: ${sellerName}`}</div>
+      <div data-testid={ `${details}order-date` }>{`Data: ${saleDate}`}</div>
       <div data-testid={ `${details}delivery-status` }>{`Status: ${status}`}</div>
       <button
         type="button"
