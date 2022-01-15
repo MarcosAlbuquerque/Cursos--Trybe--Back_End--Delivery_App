@@ -18,22 +18,24 @@ const Forms = () => {
     e.preventDefault();
     const options = LOGIN({ email, password });
     const response = await request(options);
-    const { role } = response.data;
 
-    switch (role) {
-    case 'customer':
-      setLogged('customer');
-      break;
-    case 'administrator':
-      setLogged('administrator');
-      break;
-    default:
-      break;
+    if (response) {
+      const { role } = response.data;
+      switch (role) {
+      case 'customer':
+        setLogged('customer');
+        break;
+      case 'administrator':
+        setLogged('administrator');
+        break;
+      case 'seller':
+        setLogged('seller');
+        break;
+      default:
+        break;
+      }
+      localStorage.setItem('user', JSON.stringify(response.data));
     }
-
-    localStorage.setItem('user', JSON.stringify(response.data));
-
-    return response;
   };
 
   React.useEffect(() => {
@@ -45,8 +47,9 @@ const Forms = () => {
 
   return (
     <>
-      <p>zebirita@email.com e senha $#zebirita#$</p>
-      <p>adm@deliveryapp.com e senha --adm2@21!!--</p>
+      <p>customer: zebirita@email.com e senha $#zebirita#$</p>
+      <p>adm: adm@deliveryapp.com e senha --adm2@21!!--</p>
+      <p>seller: fulana@deliveryapp.com e senha fulana@123</p>
       <form onSubmit={ (e) => requestLogin(e) }>
         <label htmlFor="email">
           Email:
@@ -87,6 +90,7 @@ const Forms = () => {
       { error ? <HiddenMessage /> : null }
       { logged === 'customer' && <Navigate to="/customer/products" />}
       { logged === 'administrator' && <Navigate to="/admin/manage" />}
+      { logged === 'seller' && <Navigate to="/seller/orders" />}
     </>
   );
 };

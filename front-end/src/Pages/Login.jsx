@@ -8,7 +8,7 @@ function Login() {
   React.useEffect(() => {
     const user = JSON.parse(localStorage.getItem('user'));
 
-    if (user) {
+    if (user && user.role === 'customer') {
       console.log(user);
       navigate('/customer/products');
     }
