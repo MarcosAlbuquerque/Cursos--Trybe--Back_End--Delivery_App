@@ -1,4 +1,7 @@
-archive/* linguist-vendored
+* linguist-vendored
+
+back-end/* linguist-vendored=false
+front-end/* linguist-vendored=false
 
 .gitattributes text eol=lf
 .gitignore text eol=lf
@@ -17,3 +20,4 @@ LICENSE text eol=lf
 *.rst text eol=lf
 *.csv text eol=lf
 *.m text eol=lf
+*.js text eol=lf
