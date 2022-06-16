@@ -1,6 +1,6 @@
 * linguist-vendored
 
-__tests__/** linguist-vendored
+*.sh linguist-vendored
 
-back-end/src/* linguist-vendored=false
-front-end/src/* linguist-vendored=false
+back-end/src/** linguist-vendored=false
+front-end/src/** linguist-vendored=false
