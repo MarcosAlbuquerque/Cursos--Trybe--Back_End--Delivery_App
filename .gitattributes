@@ -1,4 +1,4 @@
 * linguist-vendored
 
-back-end/* linguist-vendored=false
-front-end/* linguist-vendored=false
+back-end/src/* linguist-vendored=false
+front-end/src/* linguist-vendored=false
